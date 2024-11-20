@@ -12,6 +12,11 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Override
+    public List<User> getAllUser(){
+        return userMapper.allUser();
+    }
     @Override
     public void register(String username, String password){
         userMapper.add(username, password);
@@ -20,10 +25,5 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByName(String username){
         return userMapper.findByUserName(username);
-    }
-
-    @Override
-    public List<User> getAllUser(){
-        return userMapper.allUser();
     }
 }

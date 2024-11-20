@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Validated
 public class User {
-    private int id;
+    private Integer id;
 
     @Pattern(regexp = "^\\S{5,16}$")
     private String username;
@@ -17,7 +17,7 @@ public class User {
     private String password;
     private String nickname;
     private String email;
-    private String user_pic;//头像
+    private String userPic;//头像
     private LocalDateTime createTime;//创建时间
     private LocalDateTime updateTime;//更新时间
 }

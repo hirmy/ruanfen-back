@@ -1,8 +1,10 @@
 package com.ruanfen.pojo;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @AllArgsConstructor
+@Data
 public class Result<T> {
     private int code;
     private String message;

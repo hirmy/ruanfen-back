@@ -1,0 +1,9 @@
+com\ruanfen\pojo\User.class
+com\ruanfen\pojo\Result.class
+com\ruanfen\service\impl\UserServiceImpl.class
+com\ruanfen\AcademicApplication.class
+com\ruanfen\controller\UserController.class
+com\ruanfen\exception\GlobalExcaptionHandler.class
+com\ruanfen\mapper\UserMapper.class
+com\ruanfen\service\UserService.class
+com\ruanfen\pojo\Article.class
