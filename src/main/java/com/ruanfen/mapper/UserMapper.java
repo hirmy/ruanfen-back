@@ -12,6 +12,4 @@ import java.util.List;
 @Repository
 public interface UserMapper extends BaseMapper<User> {
 
-//    @Select("select * from user")
-    List<User> mySelectList();
 }

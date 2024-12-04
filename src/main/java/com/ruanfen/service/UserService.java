@@ -9,7 +9,4 @@ import java.util.List;
 
 public interface UserService extends IService<User> {
 
-
-    List<User> myList();
-    List<User> getAllUser();
 }

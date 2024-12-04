@@ -14,12 +14,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private UserMapper userMapper;
 
-    public List<User> myList(){
-        return userMapper.mySelectList();
-    }
-
-    public List<User> getAllUser(){
-        return userMapper.selectList(null);
-    }
 
 }

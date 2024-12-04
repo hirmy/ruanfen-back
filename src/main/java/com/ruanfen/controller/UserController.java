@@ -19,14 +19,9 @@ public class UserController {
 
     @GetMapping("/allUser")
     public Result<List<User>> allUsers(){
-        List<User> users = userService.getAllUser();
+        List<User> users = userService.list();    //自带
         return Result.success(users);
     }
 
-    @GetMapping("/myAllUser")
-    public Result<List<User>> myAllUsers(){
-        List<User> users = userService.myList();
-        return Result.success(users);
-    }
 
 }
