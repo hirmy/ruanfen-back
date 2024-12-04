@@ -1,7 +1,8 @@
 package com.ruanfen.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruanfen.mapper.UserMapper;
-import com.ruanfen.pojo.User;
+import com.ruanfen.model.User;
 import com.ruanfen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,21 +10,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public List<User> getAllUser(){
-        return userMapper.allUser();
-    }
-    @Override
-    public void register(String username, String password){
-        userMapper.add(username, password);
+    public List<User> myList(){
+        return userMapper.mySelectList();
     }
 
-    @Override
-    public User findByName(String username){
-        return userMapper.findByUserName(username);
+    public List<User> getAllUser(){
+        return userMapper.selectList(null);
     }
+
 }

@@ -1,4 +1,4 @@
-package com.ruanfen.pojo;
+package com.ruanfen.model;
 
 
 import lombok.Data;
