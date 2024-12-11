@@ -1,0 +1,9 @@
+com\ruanfen\service\impl\UserServiceImpl.class
+com\ruanfen\AcademicApplication.class
+com\ruanfen\controller\UserController.class
+com\ruanfen\exception\GlobalExcaptionHandler.class
+com\ruanfen\model\User.class
+com\ruanfen\model\Article.class
+com\ruanfen\mapper\UserMapper.class
+com\ruanfen\service\UserService.class
+com\ruanfen\model\Result.class
