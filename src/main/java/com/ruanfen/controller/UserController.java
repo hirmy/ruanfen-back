@@ -1,6 +1,7 @@
 package com.ruanfen.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruanfen.model.Result;
 import com.ruanfen.model.User;
 import com.ruanfen.service.UserService;
@@ -32,6 +33,12 @@ public class UserController {
     @PostMapping("/sendEmail")
     @ResponseBody
     public Result sendEmail(String email, HttpSession httpSession){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("email", email);
+        List<User> users = userService.list(wrapper);
+        if(!users.isEmpty()){
+            return Result.error("邮箱已注册");
+        }
         mailService.sendMimeMail(email, httpSession);
         return Result.success();
     }
