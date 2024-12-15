@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface UserService extends IService<User> {
 
+    User findByUsername(String name);
+    void register(String name, String password);
 }

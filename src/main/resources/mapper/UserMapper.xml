@@ -3,7 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ruanfen.mapper.UserMapper">
-    <select id="mySelectList" resultType="com.ruanfen.model.User">
-        select * from user
-    </select>
+    <insert id="addUser">
+        insert into user (user_name, password, update_time, date_joined)
+            values(#{name}, #{securePwd}, NOW(), NOW());
+    </insert>
+
 </mapper>

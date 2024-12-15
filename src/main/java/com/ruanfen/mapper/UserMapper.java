@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface UserMapper extends BaseMapper<User> {
 
+    void addUser(String name, String securePwd);
 }
