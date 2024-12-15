@@ -1,9 +1,21 @@
 spring:
+  mail:
+    host: smtp.qq.com
+    username: 2381854695@qq.com
+    password: kzclxmzzumizdhid
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+    default-encoding: UTF-8
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/academic
     username: root
     password: 123456789zmk
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**.xml
   configuration:
