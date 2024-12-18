@@ -10,13 +10,11 @@ import com.ruanfen.utils.JwtUtil;
 import com.ruanfen.utils.Md5Util;
 import com.ruanfen.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +30,7 @@ public class UserController {
 
     @PostMapping("/sendEmail")
     @ResponseBody
-    public Result sendEmail(String email, HttpSession httpSession){
+    public Result sendEmail(@RequestParam("email") String email, HttpSession httpSession){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email", email);
         List<User> users = userService.list(wrapper);
@@ -75,6 +73,13 @@ public class UserController {
             return Result.error("用户不存在");
         }
 
+        //更新lastLogin字段
+        existUser.setLastLogin(LocalDateTime.now());
+        boolean isUpdated = userService.updateById(existUser);
+        if(!isUpdated){
+            return Result.error("更新用户状态失败");
+        }
+
         //查询密码正确？
         if(Md5Util.getMD5String(password).equals(existUser.getPassword())){
             //密码正确
@@ -105,6 +110,52 @@ public class UserController {
         List<User> users = userService.list();    //自带
         return Result.success(users);
     }
+
+    @DeleteMapping("/remove")
+    public Result removeUser(@RequestParam("userId") int userId){
+        // 检查用户是否存在
+        User user = userService.getById(userId);
+        if (user == null) {
+            return Result.error("用户不存在，无法删除");
+        }
+
+        boolean isRemoved = userService.removeById(userId);
+        if (isRemoved) {
+            return Result.success("用户删除成功");
+        } else {
+            return Result.error("用户删除失败，请重试");
+        }
+
+    }
+
+    @GetMapping("/userInfo/find")
+    public Result<User> finduser(@RequestParam("userId") int userId){
+        User user = userService.getById(userId);
+        if(user == null){
+            return Result.error("用户不存在");
+        }
+
+        return Result.success(user);
+    }
+
+    @PutMapping("/update")
+    public Result updateUser(@RequestBody User user){
+        int userId = user.getUserId();
+        User existUser = userService.getById(userId);
+        if(existUser == null){
+            return Result.error("用户不存在");
+        }
+
+        user.setUpdateTime(LocalDateTime.now());
+
+        boolean isUpdated = userService.updateById(user);
+        if (isUpdated) {
+            return Result.success("用户更新成功");
+        } else {
+            return Result.error("用户更新失败，请重试");
+        }
+    }
+
 
 
 }
