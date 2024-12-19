@@ -3,18 +3,27 @@ package com.ruanfen.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum Role {
-    admin("admin"),
-    user("user"),
-    research("research");
 
-    @EnumValue // MyBatis-Plus 将通过这个字段映射到数据库
-    private final String value;
+    user(0, "user"),
+    researcher(1, "researcher"),
+    admin(2, "admin");
 
-    Role(String value) {
-        this.value = value;
+    private final int code;
+
+    @EnumValue
+    private final String name;
+
+    Role(int code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public int getCode() {
+        return code;
     }
+
+    public String getName() {
+        return name;
+    }
+
 }

@@ -1,29 +1,32 @@
 package com.ruanfen.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+
 public enum FieldOfResearch {
-    Physics("physics"),
-    Chemistry("chemistry"),
-    Biology("biology"),
-    Engineering("engineering"),
-    Mathematics("mathematics"),
-    Medicine("medicine");
+    Physics(0, "Physics"),
+    Chemistry(1, "Chemistry"),
+    Biology(2, "Biology"),
+    Engineering(3, "Engineering"),
+    Mathematics(4, "Mathematics"),
+    Medicine(5, "Medicine");
 
-    private final String value;
+    private final int code;
 
-    FieldOfResearch(String value) {
-        this.value = value;
+    @EnumValue
+    private final String name;
+
+    FieldOfResearch(int code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public int getCode() {
+        return code;
     }
 
-    public static FieldOfResearch fromValue(String value) {
-        for (FieldOfResearch field : FieldOfResearch.values()) {
-            if (field.value.equalsIgnoreCase(value)) {
-                return field;
-            }
-        }
-        throw new IllegalArgumentException("Unknown value: " + value);
+    public String getName() {
+        return name;
     }
+
+
 }

@@ -9,15 +9,23 @@ spring:
           ssl:
             enable: true
     default-encoding: UTF-8
+  # Redis 连接信息
+  redis:
+    host: 127.0.0.1
+    port: 6379
+#    password: your_password
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/academic
     username: root
-    password: lylwyf616514
+    password: 123456789zmk
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/**.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+  type-enums-package: com.ruanfen.enums
