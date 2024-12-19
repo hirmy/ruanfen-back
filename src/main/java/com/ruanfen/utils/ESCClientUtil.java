@@ -9,7 +9,7 @@ public class ESCClientUtil {
     private static RestHighLevelClient onlyClient;
 
     @Bean
-    public RestHighLevelClient client(){
+    public static RestHighLevelClient client(){
         if(onlyClient == null){
             onlyClient = new RestHighLevelClient(RestClient.builder(
                     HttpHost.create("http://127.0.0.1:9200")

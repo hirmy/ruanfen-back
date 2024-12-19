@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @TableName("project")
-public class project {
+public class Project {
     @TableId(value = "project_id", type = IdType.AUTO) // 主键自增
     private Integer projectId;
 

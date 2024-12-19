@@ -3,12 +3,12 @@ package com.ruanfen.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum FieldOfResearch {
-    Physics(1, "physics"),
-    Chemistry(2, "chemistry"),
-    Biology(3, "biology"),
-    Engineering(4, "engineering"),
-    Mathematics(5, "mathematics"),
-    Medicine(6, "medicine");
+    Physics(0, "Physics"),
+    Chemistry(1, "Chemistry"),
+    Biology(2, "Biology"),
+    Engineering(3, "Engineering"),
+    Mathematics(4, "Mathematics"),
+    Medicine(5, "Medicine");
 
     private final int code;
 
@@ -27,4 +27,6 @@ public enum FieldOfResearch {
     public String getName() {
         return name;
     }
+
+
 }

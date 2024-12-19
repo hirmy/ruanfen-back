@@ -6,6 +6,7 @@ import com.ruanfen.Docs.UserDoc;
 import com.ruanfen.model.Article;
 import com.ruanfen.model.User;
 import com.ruanfen.service.ArticleService;
+import com.ruanfen.service.ResearcherService;
 import com.ruanfen.service.UserService;
 import org.apache.http.HttpHost;
 import org.elasticsearch.action.bulk.BulkRequest;
@@ -31,6 +32,10 @@ public class ESAddDataTest {
 
     @Autowired
     private ArticleService articleService;
+
+
+    @Autowired
+    private ResearcherService researcherService;
 
     @Test
     public void addData2User() throws IOException {
@@ -73,7 +78,7 @@ public class ESAddDataTest {
             ArticleDoc articleDoc = new ArticleDoc(article);
 
             int researcherId = article.getResearcherId();
-            String researcherName = researcherService.getById(researcherId).getUserName();
+            String researcherName = researcherService.getById(researcherId).getName();
             articleDoc.setResearcherName(researcherName);
 
             // 2.2.创建新增文档的Request对象

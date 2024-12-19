@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum Role {
 
-    ADMIN(1, "user"),
-    USER(2, "researcher"),
-    GUEST(3, "admin");
+    user(0, "user"),
+    researcher(1, "researcher"),
+    admin(2, "admin");
 
     private final int code;
 
