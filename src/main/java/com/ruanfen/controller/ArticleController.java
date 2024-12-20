@@ -19,7 +19,7 @@ public class ArticleController {
     @PostMapping("/add")
     public Result addArticle(@RequestBody Article article) {
         articleService.addArticle(article);
-        return Result.success();
+        return Result.success("文章添加成功");
     }
 
     @DeleteMapping("/remove")
@@ -31,9 +31,8 @@ public class ArticleController {
         boolean isRemoved = articleService.removeById(articleId);
         if (isRemoved) {
             return Result.success("文章删除成功");
-        } else {
-            return Result.error("文章删除失败，请重试");
         }
+        return Result.error("文章删除失败，请重试");
     }
 
     @PutMapping("/update")
@@ -45,7 +44,7 @@ public class ArticleController {
         if (isUpdated) {
             return Result.success();
         }
-        return Result.error();
+        return Result.error("文章更新失败，请重试");
     }
 
     @GetMapping("/find")

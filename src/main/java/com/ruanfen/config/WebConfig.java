@@ -15,7 +15,11 @@ public class WebConfig implements WebMvcConfigurer {
     private String[] excludeLoginPath = new String[]{
         "/user/login",
         "/user/register",
-        "/user/sendEmail"
+        "/user/sendEmail",
+        "/article/search",
+        "/researcher/search",
+        "/patent/add",
+        "/patent/search"
     };
 
     @Override

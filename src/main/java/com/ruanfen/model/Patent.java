@@ -22,7 +22,7 @@ public class Patent {
     private LocalDateTime publicationDate;
     private LocalDateTime authorizationDate;
     private String mainClaim;
-    private String abstractContent; //摘要 避免冲突，重命名为 `abstractContent`
+    private String abstractText;
     private String applicants;
     private String inventorsId;
     @EnumValue

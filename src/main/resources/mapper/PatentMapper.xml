@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruanfen.mapper.PatentMapper">
+
+    <select id="searchPatents" resultType="com.ruanfen.model.Patent">
+        SELECT * FROM patent
+        WHERE 1 = 1
+        <if test="patentName != null">
+            AND patent_name LIKE CONCAT('%', #{patentName}, '%')
+        </if>
+        <if test="keywords != null">
+            AND keywords LIKE CONCAT('%', #{keywords}, '%')
+        </if>
+        <if test="fieldOfResearch != null">
+            AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
+        </if>
+        <if test="applicationDateFrom != null">
+            AND application_date &gt;= #{applicationDateFrom}
+        </if>
+        <if test="applicationDateTo != null">
+            AND application_date &lt;= #{applicationDateTo}
+        </if>
+    </select>
+
+</mapper>
