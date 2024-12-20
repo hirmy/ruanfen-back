@@ -31,7 +31,6 @@ public class User {
 
     private String email;
 
-    @EnumValue
     private Role role; // 对应 ENUM，映射为 String 类型
 
     @TableField("science_id") // 外键关联的列

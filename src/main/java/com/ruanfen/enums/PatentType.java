@@ -3,18 +3,25 @@ package com.ruanfen.enums;
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
 public enum PatentType {
-    UtilityModel("UtilityModel"),   // 实用新型
-    Invention("Invention"),         // 发明
-    Design("Design");               // 外观设计
+    UtilityModel(0, "UtilityModel"),   // 实用新型
+    Invention(1, "Invention"),         // 发明
+    Design(2, "Design");               // 外观设计
 
-    @EnumValue // 指定该字段用于映射到数据库
-    private final String value;
+    private final int code;
 
-    PatentType(String value) {
-        this.value = value;
+    @EnumValue
+    private final String name;
+
+    PatentType(int code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public int getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -4,6 +4,7 @@ package com.ruanfen.model;
 import com.baomidou.mybatisplus.annotation.*;
 import com.ruanfen.enums.FieldOfResearch;
 import lombok.Data;
+import org.apache.ibatis.type.EnumTypeHandler;
 
 import java.time.LocalDateTime;
 
