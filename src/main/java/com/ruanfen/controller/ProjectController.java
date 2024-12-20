@@ -59,11 +59,9 @@ public class ProjectController {
     }
     @GetMapping("/search")
     public Result<List<Project>> searchProject(@RequestParam(value = "project_name", required = false) String projectName,
-            @RequestParam(value = "keywords", required = false) String keywords,
-            @RequestParam(value = "field_of_research", required = false) String fieldOfResearch,
-            @RequestParam(value = "publish_time_from", required = false) String publishTimeFrom,
-            @RequestParam(value = "publish_time_to", required = false) String publishTimeTo ) {
-        List<Project> projects = projectService.searchProjects(projectName,keywords,fieldOfResearch,publishTimeFrom,publishTimeTo);
+            @RequestParam(value = "projectType", required = false) String projectType,
+            @RequestParam(value = "field_of_research", required = false) String fieldOfResearch) {
+        List<Project> projects = projectService.searchProjects(projectName,projectType,fieldOfResearch);
         return Result.success(projects);
     }
 }

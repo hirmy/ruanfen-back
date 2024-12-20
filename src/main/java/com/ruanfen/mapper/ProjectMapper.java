@@ -13,15 +13,11 @@ public interface ProjectMapper extends BaseMapper<Project> {
             "SELECT * FROM project",
             "WHERE 1 = 1",
             "<if test='projectName != null'> AND project_name LIKE CONCAT('%', #{articleName}, '%') </if>",
-            "<if test='keywords != null'> AND keywords LIKE CONCAT('%', #{keywords}, '%') </if>",
+            "<if test='projectType != null'> AND project_Type LIKE CONCAT('%', #{projectType}, '%') </if>",
             "<if test='fieldOfResearch != null'> AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%') </if>",
-            "<if test='publishTimeFrom != null'> AND publish_time &gt;= #{publishTimeFrom} </if>",
-            "<if test='publishTimeTo != null'> AND publish_time &lt;= #{publishTimeTo} </if>",
             "</script>"
     })
     List<Project> searchProjects(@Param("projectName") String projectName,
-                                 @Param("keywords") String keywords,
-                                 @Param("fieldOfResearch") String fieldOfResearch,
-                                 @Param("publishTimeFrom") String publishTimeFrom,
-                                 @Param("publishTimeTo") String publishTimeTo);
+                                 @Param("projectType") String projectType,
+                                 @Param("fieldOfResearch") String fieldOfResearch);
 }

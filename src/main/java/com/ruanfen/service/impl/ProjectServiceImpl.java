@@ -14,7 +14,7 @@ public class ProjectServiceImpl extends ServiceImpl<ProjectMapper, Project> impl
     public void addProject(Project project){
         projectMapper.insert(project);
     }
-    public List<Project> searchProjects(String prjectName, String keywords, String fieldOfResearch, String publishTimeFrom, String publishTimeTo){
-        return projectMapper.searchProjects(prjectName,keywords,fieldOfResearch,publishTimeFrom,publishTimeTo);
+    public List<Project> searchProjects(String prjectName, String projectType, String fieldOfResearch){
+        return projectMapper.searchProjects(prjectName,projectType,fieldOfResearch);
     }
 }
