@@ -26,8 +26,6 @@ public class ResearcherController {
     @Autowired
     private ResearcherService researcherService;
 
-    @Autowired
-    private MailServiceImpl mailService;
     @PostMapping("/add")
     public Result addResearcher(@RequestBody Researcher researcher) {
         researcherService.addResearcher(researcher);
