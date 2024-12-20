@@ -1,25 +1,28 @@
 package com.ruanfen.constants;
 
-public class PatentConstant {
-    //applicants为字符串："wang,li,chen"
-    //inventors_name为字符串数组["li", "kao"]
+public class ProjectConstant {
     public static final String MAPPING_TEMPLATE = """
             {
               "mappings": {
                 "properties": {
-                  "patentId": {
+                  "projectId": {
                     "type": "long"
                   },
-                  "patentName":{
+                  "projectName":{
                     "type": "text",
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "patentType":{
-                    "type": "keyword",
+                  "projectType":{
+                    "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "applicationDate":{
+                  "startDate":{
+                    "type": "date",
+                    "index": "false"
+                  },
+                  "endDate":{
                     "type": "date",
                     "index": "false"
                   },
@@ -27,17 +30,15 @@ public class PatentConstant {
                     "type": "keyword",
                     "copy_to": "all"
                   },
-                  "applicants":{
+                  "investigatorName":{
                     "type": "text",
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "inventorsName":{
+                  "participantsName":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
-                  },
-                   "views":{
-                    "type": "integer"
                   },
                   "all":{
                     "type": "text",

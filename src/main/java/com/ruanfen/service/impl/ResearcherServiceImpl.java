@@ -20,4 +20,10 @@ public class ResearcherServiceImpl extends ServiceImpl<ResearcherMapper, Researc
     public void addResearcher(Researcher researcher) {
         researcherMapper.insert(researcher);
     }
+
+    @Override
+    public String getNameById(int id) {
+        Researcher researcher = this.getById(id);  // 使用 MyBatis-Plus 获取 Patent 实体
+        return researcher != null ? researcher.getName() : null;  // 获取 name 字段
+    }
 }

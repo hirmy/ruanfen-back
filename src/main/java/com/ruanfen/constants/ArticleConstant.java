@@ -6,16 +6,16 @@ public class ArticleConstant {
             {
               "mappings": {
                 "properties": {
-                  "article_id": {
+                  "articleId": {
                     "type": "long"
                   },
-                  "article_name":{
+                  "articleName":{
                     "type": "text",
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "researcher_name":{
-                    "type": "keyword",
+                  "researcherName":{
+                    "type": "text",
                     "copy_to": "all"
                   },
                   "source":{
@@ -23,11 +23,11 @@ public class ArticleConstant {
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "publish_time":{
+                  "publishTime":{
                     "type": "date",
                     "index": "false"
                   },
-                  "field_of_research":{
+                  "fieldOfResearch":{
                     "type": "keyword",
                     "copy_to": "all"
                   },

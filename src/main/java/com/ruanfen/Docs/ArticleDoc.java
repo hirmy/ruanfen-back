@@ -7,6 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class ArticleDoc {
@@ -29,17 +31,24 @@ public class ArticleDoc {
         publishTime = article.getPublishTime();
         fieldOfResearch = article.getFieldOfResearch().getName();
 
-        // 将需要合并到 `all` 字段的字段值拼接
-        StringBuilder allFields = new StringBuilder();
-        allFields.append(articleName).append(" ")
-                .append(source)
-                .append(fieldOfResearch);
-        this.all = allFields.toString(); // 将拼接的字段值赋值给 `all`
+        this.all = " ";
     }
 
     public void setResearcherName(String researcherName){
         this.researcherName = researcherName;
-        this.all = this.all + researcherName;
+    }
+
+    public static String getFieldType(String field) {
+        Map<String, String> fieldTypeMap = new HashMap<>() {
+            {
+                put("articleName", "text");
+                put("researcherName", "text");
+                put("source", "text");
+                put("fieldOfResearch", "keyword");
+                put("all", "text");
+            }
+        };
+        return fieldTypeMap.getOrDefault(field, null);
     }
 
     public ArticleDoc(){}

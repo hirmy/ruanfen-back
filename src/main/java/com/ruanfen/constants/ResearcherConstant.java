@@ -5,7 +5,7 @@ public class ResearcherConstant {
             {
               "mappings": {
                 "properties": {
-                  "researcher_id": {
+                  "researcherId": {
                     "type": "long"
                   },
                   "name":{
@@ -18,19 +18,19 @@ public class ResearcherConstant {
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "article_ids":{
+                  "articleIds":{
                     "type": "text",
                     "index": false
                   },
-                  "patent_ids":{
+                  "patentIds":{
                     "type": "text",
                     "index": false
                   },
-                  "project_ids":{
+                  "projectIds":{
                     "type": "text",
                     "index": false
                   },
-                  "field_of_research":{
+                  "fieldOfResearch":{
                     "type": "keyword",
                     "copy_to": "all"
                   },

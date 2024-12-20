@@ -16,14 +16,27 @@ public class WebConfig implements WebMvcConfigurer {
             "/user/login",
             "/user/register",
             "/user/sendEmail",
+
+            //搜索无需登录(大概吧)
             "/search/article/allArticle",
             "/search/article",
             "/search/article/page",
             "/search/article/doc",
+
             "/search/researcher/allResearcher",
             "/search/researcher",
             "/search/researcher/page",
-            "/search/researcher/doc"
+            "/search/researcher/doc",
+
+            "/search/patent/allPatent",
+            "/search/patent",
+            "/search/patent/page",
+            "/search/patent/doc",
+
+            "/search/project/allProject",
+            "/search/project",
+            "/search/project/page",
+            "/search/project/doc"
     };
 
     @Override
