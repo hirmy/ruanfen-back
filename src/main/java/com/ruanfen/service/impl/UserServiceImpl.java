@@ -17,7 +17,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
 
-
     @Override
     public User findByUsername(String name) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
