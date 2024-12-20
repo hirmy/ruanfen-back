@@ -2,7 +2,7 @@ package com.ruanfen;
 
 import com.alibaba.fastjson.JSON;
 import com.ruanfen.Docs.UserDoc;
-import com.ruanfen.constants.UserConstant;
+import com.ruanfen.constants.*;
 import com.ruanfen.model.User;
 import com.ruanfen.service.UserService;
 import org.apache.http.HttpHost;
@@ -28,14 +28,14 @@ public class ESAddIndexTest {
 
 
     @Test
-    public void createUserIndex() throws IOException {
+    public void createIndex() throws IOException {
         this.client = new RestHighLevelClient(RestClient.builder(
                 HttpHost.create("http://127.0.0.1:9200")
         ));
         // 1.创建Request对象
-        CreateIndexRequest request = new CreateIndexRequest("user");
+        CreateIndexRequest request = new CreateIndexRequest("project");
         // 2.准备请求的参数：DSL语句
-        request.source(UserConstant.MAPPING_TEMPLATE, XContentType.JSON);
+        request.source(ProjectConstant.MAPPING_TEMPLATE, XContentType.JSON);
         // 3.发送请求
         client.indices().create(request, RequestOptions.DEFAULT);
         this.client.close();

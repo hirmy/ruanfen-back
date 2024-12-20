@@ -3,6 +3,9 @@ package com.ruanfen.Docs;
 import com.ruanfen.model.Researcher;
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Data
 public class ResearcherDoc {
     private Long researcherId;  // researcher_id, 类型为 long
@@ -23,12 +26,19 @@ public class ResearcherDoc {
         this.projectIds = entity.getProjectIds();
         this.fieldOfResearch = entity.getFieldOfResearch().getName();
 
-        StringBuilder allFields = new StringBuilder();
-        allFields.append(name).append(" ")
-                .append(institution)
-                .append(" ")
-                .append(fieldOfResearch);
-        this.all = allFields.toString(); // 将拼接的字段值赋值给 `all`
+        this.all = " ";
+    }
+
+    public static String getFieldType(String field){
+        // 映射表，映射字段名到字段类型
+        Map<String, String> fieldTypeMap = new HashMap<String, String>() {{
+            put("name", "text");
+            put("institution", "text");
+            put("fieldOfResearch", "keyword");
+            put("all", "text");
+        }};
+
+        return fieldTypeMap.getOrDefault(field, null);
     }
 
     public ResearcherDoc(){}
