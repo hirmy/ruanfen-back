@@ -2,8 +2,10 @@ package com.ruanfen;
 
 import com.alibaba.fastjson.JSON;
 import com.ruanfen.Docs.ArticleDoc;
+import com.ruanfen.Docs.ResearcherDoc;
 import com.ruanfen.Docs.UserDoc;
 import com.ruanfen.model.Article;
+import com.ruanfen.model.Researcher;
 import com.ruanfen.model.User;
 import com.ruanfen.service.ArticleService;
 import com.ruanfen.service.ResearcherService;
@@ -85,6 +87,32 @@ public class ESAddDataTest {
             request.add(new IndexRequest("article")
                     .id(String.valueOf(articleDoc.getArticleId()))
                     .source(JSON.toJSONString(articleDoc), XContentType.JSON));
+        }
+        // 3.发送请求
+        client.bulk(request, RequestOptions.DEFAULT);
+        this.client.close();
+
+    }
+
+    @Test
+    public void addData2Researcher() throws IOException{
+        this.client = new RestHighLevelClient(RestClient.builder(
+                HttpHost.create("http://127.0.0.1:9200")
+        ));
+
+        List<Researcher> researchers = researcherService.list();
+
+        // 1.创建Request
+        BulkRequest request = new BulkRequest();
+        // 2.准备参数，添加多个新增的Request
+        for (Researcher researcher : researchers) {
+            // 2.1.转换为文档类型
+            ResearcherDoc researcherDoc = new ResearcherDoc(researcher);
+
+            // 2.2.创建新增文档的Request对象
+            request.add(new IndexRequest("researcher")
+                    .id(String.valueOf(researcherDoc.getResearcherId()))
+                    .source(JSON.toJSONString(researcherDoc), XContentType.JSON));
         }
         // 3.发送请求
         client.bulk(request, RequestOptions.DEFAULT);

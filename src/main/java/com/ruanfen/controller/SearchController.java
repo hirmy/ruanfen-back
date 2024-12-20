@@ -2,6 +2,7 @@ package com.ruanfen.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.ruanfen.Docs.ArticleDoc;
+import com.ruanfen.Docs.ResearcherDoc;
 import com.ruanfen.model.Result;
 import com.ruanfen.utils.ESCClientUtil;
 import org.elasticsearch.action.get.GetRequest;
@@ -126,10 +127,98 @@ public class SearchController {
         }else {
             return Result.error();
         }
-
-
-
     }
 
+    @GetMapping("/researcher/allResearcher")
+    public Result<List<ResearcherDoc>> searchResearcherAll() throws IOException{
+        SearchRequest searchRequest = new SearchRequest("researcher");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+
+        //SearchRequest搜索请求,并指定要查询的索引
+        searchRequest.source(searchSourceBuilder);
+
+        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
+        SearchHits hits = response.getHits();
+
+        List<ResearcherDoc> docs = new ArrayList<>();
+        for(SearchHit hit : hits){
+            String jsonStr = hit.getSourceAsString();
+            ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
+            docs.add(doc);
+        }
+
+        return Result.success(docs);
+    }
+
+    @GetMapping("/researcher")
+    public Result<List<ResearcherDoc>> searchResearcherByField(@RequestParam String field, @RequestParam String text) throws IOException{
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("researcher");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
+
+        searchRequest.source(searchSourceBuilder);
+
+        // 执行搜索
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        // 处理响应结果
+        List<ResearcherDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ResearcherDoc researcherDoc = JSON.parseObject(jsonStr, ResearcherDoc.class);
+            docs.add(researcherDoc);
+        }
+        return Result.success(docs);
+    }
+
+    @GetMapping("/researcher/page")
+    public Result<List<ResearcherDoc>> ppageSearchResearcherByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("researcher");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
+
+        searchRequest.source(searchSourceBuilder);
+
+        // 执行搜索
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+
+        // 处理响应结果
+        List<ResearcherDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ResearcherDoc researcherDoc = JSON.parseObject(jsonStr, ResearcherDoc.class);
+            docs.add(researcherDoc);
+        }
+
+        return Result.success(docs);
+    }
+
+    @GetMapping("/researcher/doc")
+    public Result<ResearcherDoc> searchResearcherById(@RequestParam int researcherId) throws IOException {
+        // 1.准备Request
+        GetRequest request = new GetRequest("researcher", String.valueOf(researcherId));
+        // 2.发送请求，得到响应
+        GetResponse response = client.get(request, RequestOptions.DEFAULT);
+        if(response.isExists()){
+            // 3.解析响应结果
+            String json = response.getSourceAsString();
+            ResearcherDoc doc = JSON.parseObject(json, ResearcherDoc.class);
+            return Result.success(doc);
+        }else {
+            return Result.error();
+        }
+    }
 
 }

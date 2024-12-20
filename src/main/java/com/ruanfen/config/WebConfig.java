@@ -16,10 +16,14 @@ public class WebConfig implements WebMvcConfigurer {
         "/user/login",
         "/user/register",
         "/user/sendEmail",
-        "/article/search",
-        "/researcher/search",
-        "/patent/add",
-        "/patent/search"
+        "/search/article/allArticle",
+        "/search/article",
+        "/search/article/page",
+        "/search/article/doc",
+        "/search/researcher/allResearcher",
+        "/search/researcher",
+        "/search/researcher/page",
+        "/search/researcher/doc"
     };
 
     @Override
