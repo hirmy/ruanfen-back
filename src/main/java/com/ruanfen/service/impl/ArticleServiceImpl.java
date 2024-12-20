@@ -2,12 +2,8 @@ package com.ruanfen.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruanfen.mapper.ArticleMapper;
-import com.ruanfen.mapper.ResearcherMapper;
-import com.ruanfen.mapper.UserMapper;
 import com.ruanfen.model.Article;
-import com.ruanfen.model.User;
 import com.ruanfen.service.ArticleService;
-import com.ruanfen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
