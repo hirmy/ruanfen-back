@@ -3,7 +3,6 @@ package com.ruanfen.controller;
 import com.ruanfen.model.Project;
 import com.ruanfen.model.Result;
 import com.ruanfen.service.ProjectService;
-import com.ruanfen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,7 @@ public class ProjectController {
         }
     }
     @PostMapping("/uodate")
-    public Result updateArticle(@RequestParam("projectId") int projectId, @RequestBody Project project){
+    public Result updateProject(@RequestParam("projectId") int projectId, @RequestBody Project project){
         if(projectService.getById(projectId)==null){
             return Result.error("项目不存在，更新不了");
         }
