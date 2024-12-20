@@ -13,13 +13,18 @@ public class WebConfig implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
 
     private String[] excludeLoginPath = new String[]{
-        "/user/login",
-        "/user/register",
-        "/user/sendEmail",
+            "/user/login",
+            "/user/register",
+            "/user/sendEmail",
+            "/search/article/allArticle",
+            "/search/article",
+            "/search/article/page",
+            "/search/article/doc",
+            "/search/researcher/allResearcher",
+            "/search/researcher",
+            "/search/researcher/page",
+            "/search/researcher/doc"
     };
-
-
-
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

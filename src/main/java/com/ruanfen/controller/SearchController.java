@@ -153,7 +153,7 @@ public class SearchController {
         return Result.success(docs);
     }
 
-    @GetMapping("/researcher/")
+    @GetMapping("/researcher")
     public Result<List<ResearcherDoc>> searchResearcherByField(@RequestParam String field, @RequestParam String text) throws IOException{
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("researcher");
@@ -193,6 +193,7 @@ public class SearchController {
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+
         // 处理响应结果
         List<ResearcherDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -219,4 +220,5 @@ public class SearchController {
             return Result.error();
         }
     }
+
 }
