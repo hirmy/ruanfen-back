@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: io.projectreactor:reactor-core:3.4.13" type="java-imported" external-system-id="Maven">
+    <properties groupId="io.projectreactor" artifactId="reactor-core" version="3.4.13" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/io/projectreactor/reactor-core/3.4.13/reactor-core-3.4.13.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/io/projectreactor/reactor-core/3.4.13/reactor-core-3.4.13-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/io/projectreactor/reactor-core/3.4.13/reactor-core-3.4.13-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
