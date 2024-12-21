@@ -84,12 +84,6 @@
       <artifactId>spring-boot-starter-mail</artifactId>
     </dependency>
 
-    <!--<dependency>-->
-    <!--  <groupId>junit</groupId>-->
-    <!--  <artifactId>junit</artifactId>-->
-    <!--  <scope>test</scope>-->
-    <!--</dependency>-->
-
 
     <!--ElasticSearch-->
     <dependency>
@@ -113,7 +107,18 @@
 
 
   </dependencies>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>15</source>
+                    <target>15</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 
 </project>

@@ -41,7 +41,7 @@ public class ProjectDoc {
     }
 
     public static String getFieldType(String field) {
-        Map<String, String> fieldTypeMap = new HashMap<>() {{
+        Map<String, String> fieldTypeMap = new HashMap() {{
             put("projectName", "text");
             put("projectType", "text");
             put("fieldOfResearch", "keyword");

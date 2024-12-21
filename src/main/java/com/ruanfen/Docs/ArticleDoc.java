@@ -39,7 +39,7 @@ public class ArticleDoc {
     }
 
     public static String getFieldType(String field) {
-        Map<String, String> fieldTypeMap = new HashMap<>() {
+        Map<String, String> fieldTypeMap = new HashMap() {
             {
                 put("articleName", "text");
                 put("researcherName", "text");
