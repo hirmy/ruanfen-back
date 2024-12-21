@@ -11,7 +11,7 @@
             AND project_name LIKE CONCAT('%', #{projectName}, '%')
         </if>
         <if test="projectType != null">
-            AND projectType LIKE CONCAT('%', #{projectType}, '%')
+            AND project_Type LIKE CONCAT('%', #{projectType}, '%')
         </if>
         <if test="fieldOfResearch != null">
             AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
