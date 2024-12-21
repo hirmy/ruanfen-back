@@ -37,7 +37,7 @@ public class CommentController {
     public Result<Comment> findCommentById(@RequestParam("commentId") int commentId) {
         Comment comment = commentService.getById(commentId);
         if (comment == null) {
-            return Result.error("文章不存在");
+            return Result.error("评论不存在");
         }
         return Result.success(comment);
     }
@@ -46,7 +46,7 @@ public class CommentController {
     public Result<Comment> findCommentByAchieve(@RequestParam("achievementType") int achievementType,@RequestParam("achievementId") int achievementId) {
         Comment comment = commentService.findCommentByAchieve(achievementType,achievementId);
         if (comment == null) {
-            return Result.error("文章不存在");
+            return Result.error("评论不存在");
         }
         return Result.success(comment);
     }
