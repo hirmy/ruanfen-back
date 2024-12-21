@@ -14,7 +14,6 @@ public class Article {
     @TableId(value = "article_id", type = IdType.AUTO) // 主键，自增
     private Integer articleId;
 
-    @TableField("article_name")
     private String articleName;
 
     private String doi;
@@ -23,16 +22,13 @@ public class Article {
 
     private String keywords;
 
-    @TableField("researcher_id")
     private Integer researcherId;
 
     @EnumValue
     private FieldOfResearch fieldOfResearch;
 
-    @TableField("publish_time")
     private LocalDateTime publishTime;
 
-    @TableField("category_num")
     private String categoryNum;
 
     private Integer pages;

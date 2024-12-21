@@ -37,6 +37,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/search/project",
             "/search/project/page",
             "/search/project/doc"
+
     };
 
     @Override
