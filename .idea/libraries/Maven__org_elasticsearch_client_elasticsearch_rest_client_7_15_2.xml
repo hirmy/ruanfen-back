@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Maven: org.elasticsearch.client:elasticsearch-rest-client:7.15.2" type="java-imported" external-system-id="Maven">
+    <properties groupId="org.elasticsearch.client" artifactId="elasticsearch-rest-client" version="7.15.2" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/org/elasticsearch/client/elasticsearch-rest-client/7.15.2/elasticsearch-rest-client-7.15.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/org/elasticsearch/client/elasticsearch-rest-client/7.15.2/elasticsearch-rest-client-7.15.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../Maven/apache-maven-3.8.8/repo/org/elasticsearch/client/elasticsearch-rest-client/7.15.2/elasticsearch-rest-client-7.15.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
