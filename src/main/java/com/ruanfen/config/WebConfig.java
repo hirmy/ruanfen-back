@@ -22,21 +22,28 @@ public class WebConfig implements WebMvcConfigurer {
             "/search/article",
             "/search/article/page",
             "/search/article/doc",
+            "/search/article/cond",
 
             "/search/researcher/allResearcher",
             "/search/researcher",
             "/search/researcher/page",
             "/search/researcher/doc",
+            "/search/researcher/cond",
+
 
             "/search/patent/allPatent",
             "/search/patent",
             "/search/patent/page",
             "/search/patent/doc",
+            "/search/patent/cond",
+
 
             "/search/project/allProject",
             "/search/project",
             "/search/project/page",
-            "/search/project/doc"
+            "/search/project/doc",
+            "/search/project/cond"
+
     };
 
     @Override
