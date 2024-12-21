@@ -37,13 +37,13 @@ public class MailServiceImpl {
      * @param session
      * @return
      */
-    public boolean sendMimeMail( String email, HttpSession session) {
+    public boolean sendMimeMail( String email, String code,HttpSession session) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();
 
             mailMessage.setSubject("验证码邮件");//主题
             //生成随机数
-            String code = randomCode();
+            //String code = randomCode();
 
             //将随机数放置到session中
             session.setAttribute("email",email);
