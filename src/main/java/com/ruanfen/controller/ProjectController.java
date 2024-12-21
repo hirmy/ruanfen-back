@@ -32,7 +32,7 @@ public class ProjectController {
             return Result.error("项目移除失败，请重新操作");
         }
     }
-    @PostMapping("/uodate")
+    @PostMapping("/update")
     public Result updateProject(@RequestParam("projectId") int projectId, @RequestBody Project project){
         if(projectService.getById(projectId)==null){
             return Result.error("项目不存在，更新不了");

@@ -5,4 +5,5 @@ import com.ruanfen.model.Portal;
 import com.ruanfen.model.Project;
 
 public interface PortalService extends IService<Portal> {
+    void addPortal(Portal portal);
 }

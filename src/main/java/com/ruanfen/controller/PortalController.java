@@ -15,9 +15,9 @@ public class PortalController {
     @Autowired
     private PortalService portalService;
     @PostMapping("/add")
-    public Result addProject(@RequestBody Project project)
+    public Result addPortal(@RequestBody Portal portal)
     {
-        portalService.;
+        portalService.addPortal(portal);
         return  Result.success();
     }
     @PostMapping("/remove")
@@ -41,10 +41,10 @@ public class PortalController {
         }
         return Result.success(portal);
     }
-    @PostMapping("/uodate")
+    @PostMapping("/update")
     public Result updatePortal(@RequestParam("portalId") int portalId, @RequestBody Portal portal){
         if(portalService.getById(portalId)==null){
-            return Result.error("项目不存在，更新不了");
+            return Result.error("门户不存在，更新不了");
         }
         boolean isUpdated=portalService.updateById(portal);
         if(isUpdated){
@@ -53,7 +53,7 @@ public class PortalController {
         return Result.error();
     }
     // 获取所有门户信息
-    @GetMapping("/allProjects")
+    @GetMapping("/allPortals")
     public Result<List<Portal>> getAllPortals() {
         List<Portal> portalList = portalService.list();
         return Result.success(portalList);
