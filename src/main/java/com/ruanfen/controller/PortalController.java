@@ -1,13 +1,12 @@
 package com.ruanfen.controller;
-
 import com.ruanfen.model.Portal;
 import com.ruanfen.model.Project;
 import com.ruanfen.model.Result;
 import com.ruanfen.service.PortalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/portal")
@@ -20,6 +19,7 @@ public class PortalController {
         portalService.addPortal(portal);
         return  Result.success();
     }
+
     @PostMapping("/remove")
     public Result removePortal(@RequestParam("portalId") int portalId){
         if(portalService.getById(portalId)==null){

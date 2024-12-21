@@ -20,6 +20,7 @@ public class ProjectController {
         return  Result.success();
     }
     @PostMapping("/remove")
+
     public Result removeProject(@RequestParam("projectId") int projectId){
         if(projectService.getById(projectId)==null){
             return  Result.error("无项目");
