@@ -43,7 +43,7 @@ public class PatentDoc {
     }
 
     public static String getFieldType(String field){
-        Map<String, String> fieldTypeMap = new HashMap<>(){
+        Map<String, String> fieldTypeMap = new HashMap(){
             {
                 put("patentName", "text");
                 put("patentType", "keyword");

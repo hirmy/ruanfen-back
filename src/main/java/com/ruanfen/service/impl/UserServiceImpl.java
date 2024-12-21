@@ -13,10 +13,9 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
     @Autowired
     private UserMapper userMapper;
-
-
 
     @Override
     public User findByUsername(String name) {
@@ -30,6 +29,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String securePwd = Md5Util.getMD5String(password);
         userMapper.addUser(name, securePwd, email);
     }
-
 
 }

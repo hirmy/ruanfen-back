@@ -38,6 +38,7 @@ public class UserController {
             return Result.error("邮箱已注册");
         }
         mailService.sendMimeMail(email, httpSession);
+
         return Result.success();
     }
 
@@ -83,7 +84,7 @@ public class UserController {
         //查询密码正确？
         if(Md5Util.getMD5String(password).equals(existUser.getPassword())){
             //密码正确
-            Map<String, Object> claims = new HashMap<>(){
+            Map<String, Object> claims = new HashMap(){
                 {
                     put("id", existUser.getUserId());
                     put("userName", existUser.getUserName());
