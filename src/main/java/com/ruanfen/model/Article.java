@@ -26,8 +26,7 @@ public class Article {
     @TableField("researcher_id")
     private Integer researcherId;
 
-    @EnumValue
-    private FieldOfResearch fieldOfResearch;
+    private String fieldOfResearch;
 
     @TableField("publish_time")
     private LocalDateTime publishTime;

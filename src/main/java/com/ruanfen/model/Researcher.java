@@ -12,8 +12,7 @@ public class Researcher {
 
     private String name;
 
-    @EnumValue
-    private FieldOfResearch fieldOfResearch; // 对应 ENUM 字段，使用 String 类型映射
+    private String fieldOfResearch; // 对应 ENUM 字段，使用 String 类型映射
 
     private String articleIds;
 

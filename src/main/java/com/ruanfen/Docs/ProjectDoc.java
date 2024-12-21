@@ -27,7 +27,7 @@ public class ProjectDoc {
         this.projectType = project.getProjectType();
         this.startDate = project.getStartDate();
         this.endDate = project.getEndDate();
-        this.fieldOfResearch = project.getFieldOfResearch().getName();
+        this.fieldOfResearch = project.getFieldOfResearch();
 
         this.all = " ";
     }

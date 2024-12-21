@@ -26,18 +26,11 @@ public class PatentDoc {
         this.patentName = patent.getPatentName();
         this.patentType = patent.getPatentType().getName();
         this.applicationDate = patent.getApplicationDate();
-        this.fieldOfResearch = patent.getFieldOfResearch().getName();
+        this.fieldOfResearch = patent.getFieldOfResearch();
         this.applicants = patent.getApplicants();
         this.inventorsName = new ArrayList<>();
         this.views = patent.getViews();
 
-//        // 将需要合并到 `all` 字段的字段值拼接
-//        StringBuilder allFields = new StringBuilder();
-//        allFields.append(patentName).append(",")
-//                .append(patentType).append(",")
-//                .append(fieldOfResearch).append(",")
-//                .append(applicants).append(",");
-//        this.all = allFields.toString(); // 将拼接的字段值赋值给 `all`
         this.all = " ";
 
     }

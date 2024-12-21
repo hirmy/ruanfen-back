@@ -22,8 +22,7 @@ public class Project {
 
     private String fundingSources; // 资金来源
 
-    @EnumValue
-    private FieldOfResearch fieldOfResearch; // 研究领域
+    private String fieldOfResearch; // 研究领域
 
     private Integer investigatorId; // 主要负责人ID fk
 
