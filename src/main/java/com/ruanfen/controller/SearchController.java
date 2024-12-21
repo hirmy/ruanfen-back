@@ -90,8 +90,8 @@ public class SearchController {
         }
 
         return Result.success(docs);
-    }
 
+    }
 
     @GetMapping("/article/page")
     public Result<List<ArticleDoc>> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
