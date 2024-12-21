@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.ruanfen.mapper")
 public class AcademicApplication
 {
-    public static void main( String[] args ){
+    public static void main(String[] args){
         SpringApplication.run(AcademicApplication.class, args);
     }
 

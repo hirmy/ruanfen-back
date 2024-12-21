@@ -12,6 +12,5 @@ import java.util.List;
 @Repository
 public interface UserMapper extends BaseMapper<User> {
 
-//    @Select("select * from user")
-    List<User> mySelectList();
+    void addUser(String name, String securePwd, String email);
 }

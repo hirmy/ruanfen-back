@@ -1,0 +1,27 @@
+-------------------------------------------------------------------------------
+Test set: com.ruanfen.ESAddDataTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 1.13 s <<< FAILURE! - in com.ruanfen.ESAddDataTest
+addData2Researcher  Time elapsed: 0.819 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.ruanfen.enums.FieldOfResearch.getName()" because the return value of "com.ruanfen.model.Researcher.getFieldOfResearch()" is null
+	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:111)
+
+addData2User  Time elapsed: 0.237 s  <<< ERROR!
+org.elasticsearch.ElasticsearchException: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: no further information
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:63)
+Caused by: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: no further information
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:63)
+Caused by: java.net.ConnectException: Connection refused: no further information
+
+addData2Article  Time elapsed: 0.02 s  <<< ERROR!
+org.elasticsearch.action.ActionRequestValidationException: Validation Failed: 1: no requests added;
+	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:93)
+
+addData2Patent  Time elapsed: 0.023 s  <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "com.ruanfen.enums.PatentType.getName()" because the return value of "com.ruanfen.model.Patent.getPatentType()" is null
+	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:138)
+
+addData2Project  Time elapsed: 0.02 s  <<< ERROR!
+org.elasticsearch.action.ActionRequestValidationException: Validation Failed: 1: no requests added;
+	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:210)
+
