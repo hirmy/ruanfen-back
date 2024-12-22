@@ -80,8 +80,8 @@ public class ESAddDataTest {
             // 2.1.转换为文档类型
             ArticleDoc articleDoc = new ArticleDoc(article);
 
-            int researcherId = article.getResearcherId();
-            String researcherName = researcherService.getById(researcherId).getName();
+            String researcherUrl = article.getResearcherUrl();
+            String researcherName = researcherService.getNameByUrl(researcherUrl);
             articleDoc.setResearcherName(researcherName);
 
             // 2.2.创建新增文档的Request对象

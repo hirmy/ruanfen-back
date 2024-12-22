@@ -24,7 +24,7 @@ public class ResearcherDoc {
         this.articleIds = entity.getArticleIds();
         this.patentIds = entity.getPatentIds();
         this.projectIds = entity.getProjectIds();
-        this.fieldOfResearch = entity.getFieldOfResearch().getName();
+        this.fieldOfResearch = entity.getFieldOfResearch();
 
         this.all = " ";
     }

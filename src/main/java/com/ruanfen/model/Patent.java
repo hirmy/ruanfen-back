@@ -25,7 +25,6 @@ public class Patent {
     private String abstractText; //摘要 避免冲突，重命名为 `abstractContent`
     private String applicants;
     private String inventorsId;
-    @EnumValue
-    private FieldOfResearch fieldOfResearch;
+    private String fieldOfResearch;
     private Integer views;
 }

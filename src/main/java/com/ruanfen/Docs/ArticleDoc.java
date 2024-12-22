@@ -29,7 +29,7 @@ public class ArticleDoc {
         researcherName = null;
         source = article.getSource();
         publishTime = article.getPublishTime();
-        fieldOfResearch = article.getFieldOfResearch().getName();
+        fieldOfResearch = article.getFieldOfResearch();
 
         this.all = " ";
     }

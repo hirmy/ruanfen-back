@@ -24,8 +24,9 @@ public class Article {
 
     private Integer researcherId;
 
-    @EnumValue
-    private FieldOfResearch fieldOfResearch;
+    private String researcherUrl;
+
+    private String fieldOfResearch;
 
     private LocalDateTime publishTime;
 
@@ -36,6 +37,8 @@ public class Article {
     private Integer views;
 
     private String source;
+
+    private String url;
 
     @TableField("references_ids")
     private String referencesIds; // 存储引用文献 ID 串
