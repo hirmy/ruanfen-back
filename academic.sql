@@ -59,7 +59,7 @@ CREATE TABLE `patent` (
 CREATE TABLE `researcher` (
   `researcher_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
-  `field_of_research` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `field_of_research` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `article_ids` text,
   `patent_ids` text,
   `project_ids` text,
@@ -67,8 +67,9 @@ CREATE TABLE `researcher` (
   `institution` varchar(50) DEFAULT NULL,
   `awards` text,
   `claimed` tinyint(1) DEFAULT '0',
+  `url` varchar(100) NOT NULL DEFAULT '0',
   PRIMARY KEY (`researcher_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 -- academic.article definition
@@ -80,18 +81,19 @@ CREATE TABLE `article` (
   `abstract_text` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '摘要',
   `keywords` text COMMENT '关键词',
   `researcher_id` int DEFAULT NULL COMMENT '作者',
-  `field_of_research` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '所属领域',
+  `field_of_research` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '所属领域',
   `publish_time` datetime DEFAULT NULL COMMENT '发表时间',
   `category_num` varchar(20) DEFAULT NULL COMMENT '分类号',
   `pages` int DEFAULT NULL COMMENT '页数',
   `views` int DEFAULT NULL COMMENT '查看次数',
   `source` text COMMENT '来源',
   `references_ids` text COMMENT '经处理后存储的引用文献ID串',
+  `url` varchar(100) NOT NULL DEFAULT '0',
+  `researcher_url` varchar(100) NOT NULL DEFAULT '0',
   PRIMARY KEY (`article_id`),
   KEY `fk_researcher_id` (`researcher_id`),
   CONSTRAINT `fk_researcher_id` FOREIGN KEY (`researcher_id`) REFERENCES `researcher` (`researcher_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- academic.award definition
 
