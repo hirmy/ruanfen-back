@@ -2,6 +2,7 @@ package com.ruanfen.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ruanfen.enums.Role;
 import com.ruanfen.model.Portal;
 import com.ruanfen.model.Researcher;
 import com.ruanfen.model.Result;
@@ -181,13 +182,20 @@ public class UserController {
         int researcherId = portal.getScienceId();
 
         user.setScienceId(researcherId);
+        user.setRole(Role.researcher);
+        userService.updateById(user);
+
         portal.setBelongUserId(userId);
+        portal.setIsClaimed(true);
+        portal.setClaimedTime(LocalDateTime.now());
+        portalService.updateById(portal);
 
         Researcher researcher = researcherService.getById(researcherId);
         if(researcher == null){
             return Result.error("找不到对应科研人员");
         }
         researcher.setClaimed(true);
+        researcherService.updateById(researcher);
 
         return Result.success();
     }
