@@ -30,14 +30,14 @@ public class UserController {
 
     @PostMapping("/sendEmail")
     @ResponseBody
-    public Result sendEmail(@RequestParam("email") String email, HttpSession httpSession){
+    public Result sendEmail(@RequestParam("email") String email,@RequestParam("code") String code, HttpSession httpSession){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email", email);
         List<User> users = userService.list(wrapper);
         if(!users.isEmpty()){
             return Result.error("邮箱已注册");
         }
-        mailService.sendMimeMail(email, httpSession);
+        mailService.sendMimeMail(email,code, httpSession);
 
         return Result.success();
     }
