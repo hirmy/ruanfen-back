@@ -26,5 +26,7 @@ public class Researcher {
 
     private String awards;
 
+    private String url;
+
     private Boolean claimed; // 对应 tinyint(1)，映射为 Boolean 类型
 }

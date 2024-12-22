@@ -26,6 +26,8 @@ public class Article {
     @TableField("researcher_id")
     private Integer researcherId;
 
+    private String researcherUrl;
+
     private String fieldOfResearch;
 
     @TableField("publish_time")
@@ -39,6 +41,8 @@ public class Article {
     private Integer views;
 
     private String source;
+
+    private String url;
 
     @TableField("references_ids")
     private String referencesIds; // 存储引用文献 ID 串

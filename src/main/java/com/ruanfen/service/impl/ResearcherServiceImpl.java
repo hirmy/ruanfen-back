@@ -1,5 +1,6 @@
 package com.ruanfen.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruanfen.mapper.ResearcherMapper;
 import com.ruanfen.mapper.UserMapper;
@@ -25,5 +26,14 @@ public class ResearcherServiceImpl extends ServiceImpl<ResearcherMapper, Researc
     public String getNameById(int id) {
         Researcher researcher = this.getById(id);  // 使用 MyBatis-Plus 获取 Patent 实体
         return researcher != null ? researcher.getName() : null;  // 获取 name 字段
+    }
+
+    @Override
+    public String getNameByUrl(String url){
+        QueryWrapper<Researcher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("url", url);
+
+        Researcher researcher = researcherMapper.selectOne(queryWrapper);
+        return researcher != null ? researcher.getName() : null;
     }
 }
