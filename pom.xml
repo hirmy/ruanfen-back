@@ -101,10 +101,6 @@
     </dependency>
 
     <!-- canal-client -->
-<<<<<<< HEAD
-
-=======
->>>>>>> zmk
     <!--<dependency>-->
     <!--  <groupId>top.javatool</groupId>-->
     <!--  <artifactId>canal-spring-boot-starter</artifactId>-->
