@@ -20,4 +20,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public List<Article> searchArticles(String articleName, String keywords, String fieldOfResearch, String publishTimeFrom, String publishTimeTo) {
         return articleMapper.searchArticles(articleName, keywords, fieldOfResearch, publishTimeFrom, publishTimeTo);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> zmk

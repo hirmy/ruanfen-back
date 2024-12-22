@@ -28,7 +28,7 @@ public class ArticleConstant {
                     "index": "false"
                   },
                   "fieldOfResearch":{
-                    "type": "keyword",
+                    "type": "text",
                     "copy_to": "all"
                   },
                   "all":{

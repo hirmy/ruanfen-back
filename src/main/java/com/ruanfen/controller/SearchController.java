@@ -20,12 +20,18 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+=======
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> zmk
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +41,18 @@ public class SearchController {
 
     private RestHighLevelClient client = ESCClientUtil.client();
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     @GetMapping("/article/allArticle")
     public Result<List<ArticleDoc>> searchArticleAll() throws IOException{
         SearchRequest searchRequest = new SearchRequest("article");
+
+        String redisKey = "article:all";
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
 
         //2.创建 SearchSourceBuilder条件构造。
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -58,11 +73,23 @@ public class SearchController {
             docs.add(articleDoc);
         }
 
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofHours(5));
+
         return Result.success(docs);
     }
 
     @GetMapping("/article")
     public Result<List<ArticleDoc>> searchArticleByField(@RequestParam String field, @RequestParam String text) throws IOException {
+        // 使用 field 和 text 生成唯一的缓存键
+        String redisKey = "article:search:" + field + ":" + text;
+
+        // 1. 查询缓存
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("article");
 
@@ -89,12 +116,173 @@ public class SearchController {
             docs.add(articleDoc);
         }
 
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofMinutes(10));
+
         return Result.success(docs);
 
     }
 
+<<<<<<< HEAD
+=======
+//    @PostMapping("/article/multi")
+//    public Result<List<ArticleDoc>> searchArticleByMultiFields(
+//            @RequestBody SearchQueryRequest queryRequest) throws IOException {
+//
+//        // 1. 创建 SearchRequest，指定索引
+//        SearchRequest searchRequest = new SearchRequest();
+//        searchRequest.indices("article");
+//
+//        // 2. 创建 SearchSourceBuilder，用于构建查询条件
+//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+//
+//        // 3. 创建 bool 查询，支持多个子查询条件
+//        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+//
+//        // 4. 根据用户传入的多个字段进行查询
+//        String relation = queryRequest.getRelation();
+//        for (SearchField searchField : queryRequest.getFieldsAndTexts()) {
+//            String fieldName = searchField.getField();
+//            String fieldText = searchField.getText();
+//            // 根据字段类型决定查询方式
+//            String fieldType = ArticleDoc.getFieldType(fieldName);
+//            switch (relation){
+//                case "and":
+//                    if ("text".equals(fieldType)) {
+//                        boolQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else if ("keyword".equals(fieldType)) {
+//                        boolQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else {
+//                        return Result.error("该字段无法搜索");
+//                    }
+//                    break;
+//                case "or":
+//                    if ("text".equals(fieldType)) {
+//                        boolQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else if ("keyword".equals(fieldType)) {
+//                        boolQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else {
+//                        return Result.error("该字段无法搜索");
+//                    }
+//                    break;
+//                case "not":
+//                    if ("text".equals(fieldType)) {
+//                        boolQuery.mustNot(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else if ("keyword".equals(fieldType)) {
+//                        boolQuery.mustNot(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
+//                    } else {
+//                        return Result.error("该字段无法搜索");
+//                    }
+//                    break;
+//                default:
+//                    return Result.error("传入relation不合法.");
+//            }
+//        }
+//
+//        searchSourceBuilder.query(boolQuery);
+//        searchRequest.source(searchSourceBuilder);
+//
+//        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+//
+//        List<ArticleDoc> docs = new ArrayList<>();
+//        for (SearchHit hit : searchResponse.getHits().getHits()) {
+//            String jsonStr = hit.getSourceAsString();
+//            ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
+//            docs.add(articleDoc);
+//        }
+//
+//        return Result.success(docs);
+//    }
+
+    @PostMapping("/article/cond")
+    public Result<List<ArticleDoc>> searchArticleByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        String cacheKey = "article:" + searchQueryRequest.generateCacheKey();
+
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
+        }
+
+        // 1. 创建 SearchRequest，指定索引
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("article");
+
+        // 2. 创建 SearchSourceBuilder，用于构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        // 3. 创建 bool 查询，支持多个子查询条件
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        // 4. 处理 OR 条件部分：a || b
+        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = ArticleDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
+            } else if ("keyword".equals(fieldType)) {
+                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+
+        // 将 OR 查询部分加入主查询
+        boolQuery.must(orQuery);
+
+        // 5. 处理 AND 条件部分：c && d && e
+        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = ArticleDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
+            } else if ("keyword".equals(fieldType)) {
+                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+        boolQuery.must(andQuery);
+
+        // 6. 设置查询条件
+        searchSourceBuilder.query(boolQuery);
+        searchRequest.source(searchSourceBuilder);
+
+        // 7. 执行搜索请求
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        // 8. 处理响应结果
+        List<ArticleDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
+            docs.add(articleDoc);
+        }
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+
+        return Result.success(docs);
+    }
+
+>>>>>>> zmk
     @GetMapping("/article/page")
     public Result<List<ArticleDoc>> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
+        // 缓存键生成
+        String cacheKey =  "article:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
+
+        // 先尝试从缓存中获取数据
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("article");
 
@@ -122,6 +310,8 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
+        // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
         return Result.success(docs);
 
@@ -129,6 +319,13 @@ public class SearchController {
 
     @GetMapping("/article/doc")
     public Result<ArticleDoc> searchArticleById(@RequestParam int articleId) throws IOException {
+        String redisKey = "article:doc:" + articleId;
+
+        ArticleDoc cachedArticleDoc = (ArticleDoc) redisTemplate.opsForValue().get(redisKey);
+        if (cachedArticleDoc != null) {
+            return Result.success(cachedArticleDoc);
+        }
+
         // 1.准备Request
         GetRequest request = new GetRequest("article", String.valueOf(articleId));
         // 2.发送请求，得到响应
@@ -137,6 +334,8 @@ public class SearchController {
             // 3.解析响应结果
             String json = response.getSourceAsString();
             ArticleDoc articleDoc = JSON.parseObject(json, ArticleDoc.class);
+
+            redisTemplate.opsForValue().set(redisKey, articleDoc, Duration.ofMinutes(5));
             return Result.success(articleDoc);
         }else {
             return Result.error();
@@ -146,6 +345,13 @@ public class SearchController {
     @GetMapping("/researcher/allResearcher")
     public Result<List<ResearcherDoc>> searchResearcherAll() throws IOException{
         SearchRequest searchRequest = new SearchRequest("researcher");
+
+        String redisKey = "researcher:all";
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
 
         //2.创建 SearchSourceBuilder条件构造。
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -163,12 +369,21 @@ public class SearchController {
             ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
             docs.add(doc);
         }
-
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofHours(5));
         return Result.success(docs);
     }
 
     @GetMapping("/researcher")
     public Result<List<ResearcherDoc>> searchResearcherByField(@RequestParam String field, @RequestParam String text) throws IOException{
+        String redisKey = "researcher:search:" + field + ":" + text;
+
+        // 1. 查询缓存
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("researcher");
 
@@ -194,11 +409,102 @@ public class SearchController {
             ResearcherDoc researcherDoc = JSON.parseObject(jsonStr, ResearcherDoc.class);
             docs.add(researcherDoc);
         }
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofMinutes(10));
         return Result.success(docs);
     }
 
+<<<<<<< HEAD
+=======
+    @PostMapping("/researcher/cond")
+    public Result<List<ResearcherDoc>> searchResearcherByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        String cacheKey = "researcher:" + searchQueryRequest.generateCacheKey();
+
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
+        }
+
+        // 1. 创建 SearchRequest，指定索引
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("researcher");
+
+        // 2. 创建 SearchSourceBuilder，用于构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        // 3. 创建 bool 查询，支持多个子查询条件
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        // 4. 处理 OR 条件部分：a || b
+        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = ResearcherDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
+            } else if ("keyword".equals(fieldType)) {
+                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+
+        // 将 OR 查询部分加入主查询
+        boolQuery.must(orQuery);
+
+        // 5. 处理 AND 条件部分：c && d && e
+        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = ResearcherDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
+            } else if ("keyword".equals(fieldType)) {
+                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+        boolQuery.must(andQuery);
+
+        // 6. 设置查询条件
+        searchSourceBuilder.query(boolQuery);
+        searchRequest.source(searchSourceBuilder);
+
+        // 7. 执行搜索请求
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        // 8. 处理响应结果
+        List<ResearcherDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
+            docs.add(doc);
+        }
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+
+        return Result.success(docs);
+    }
+
+>>>>>>> zmk
     @GetMapping("/researcher/page")
     public Result<List<ResearcherDoc>> pageSearchResearcherByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
+        // 缓存键生成
+        String cacheKey = "researcher:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
+
+        // 先尝试从缓存中获取数据
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("researcher");
 
@@ -233,6 +539,12 @@ public class SearchController {
 
     @GetMapping("/researcher/doc")
     public Result<ResearcherDoc> searchResearcherById(@RequestParam int researcherId) throws IOException {
+        String redisKey = "researcher:doc:" + researcherId;
+
+        ResearcherDoc cachedArticleDoc = (ResearcherDoc) redisTemplate.opsForValue().get(redisKey);
+        if (cachedArticleDoc != null) {
+            return Result.success(cachedArticleDoc);
+        }
         // 1.准备Request
         GetRequest request = new GetRequest("researcher", String.valueOf(researcherId));
         // 2.发送请求，得到响应
@@ -241,6 +553,8 @@ public class SearchController {
             // 3.解析响应结果
             String json = response.getSourceAsString();
             ResearcherDoc doc = JSON.parseObject(json, ResearcherDoc.class);
+
+            redisTemplate.opsForValue().set(redisKey, doc, Duration.ofMinutes(5));
             return Result.success(doc);
         }else {
             return Result.error();

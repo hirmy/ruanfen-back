@@ -33,9 +33,9 @@ public class ESAddIndexTest {
                 HttpHost.create("http://127.0.0.1:9200")
         ));
         // 1.创建Request对象
-        CreateIndexRequest request = new CreateIndexRequest("project");
+        CreateIndexRequest request = new CreateIndexRequest("researcher");
         // 2.准备请求的参数：DSL语句
-        request.source(ProjectConstant.MAPPING_TEMPLATE, XContentType.JSON);
+        request.source(ResearcherConstant.MAPPING_TEMPLATE, XContentType.JSON);
         // 3.发送请求
         client.indices().create(request, RequestOptions.DEFAULT);
         this.client.close();

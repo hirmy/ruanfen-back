@@ -8,26 +8,30 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 
 @SpringBootTest
 public class ESGetTest {
     private RestHighLevelClient client = ESCClientUtil.client();
+    @Autowired
+    private StringRedisTemplate template;
 
     @Test
+    @Transactional
     void testGetDocumentById() throws IOException {
-        // 1.准备Request
-        GetRequest request = new GetRequest("article", "1");
-        // 2.发送请求，得到响应
-        GetResponse response = client.get(request, RequestOptions.DEFAULT);
-        // 3.解析响应结果
-        String json = response.getSourceAsString();
 
-        // 转换为对象
-        ArticleDoc articleDoc = JSON.parseObject(json, ArticleDoc.class);
-        System.out.println(articleDoc);
+        template.setEnableTransactionSupport(true);
+
+        template.multi();
+        template.opsForValue().set("a", "123");
+        template.exec();
+
     }
 
 }

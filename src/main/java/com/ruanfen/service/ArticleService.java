@@ -10,4 +10,8 @@ public interface ArticleService extends IService<Article> {
     void addArticle(Article article);
     List<Article> searchArticles(String articleName, String keywords, String fieldOfResearch, String publishTimeFrom, String publishTimeTo);
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> zmk
