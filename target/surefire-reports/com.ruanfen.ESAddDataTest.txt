@@ -1,31 +1,114 @@
 -------------------------------------------------------------------------------
 Test set: com.ruanfen.ESAddDataTest
 -------------------------------------------------------------------------------
-<<<<<<< HEAD
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.64 s - in com.ruanfen.ESAddDataTest
-=======
-Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 1.13 s <<< FAILURE! - in com.ruanfen.ESAddDataTest
-addData2Researcher  Time elapsed: 0.819 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "com.ruanfen.enums.FieldOfResearch.getName()" because the return value of "com.ruanfen.model.Researcher.getFieldOfResearch()" is null
-	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:111)
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 5.719 s <<< FAILURE! - in com.ruanfen.ESAddDataTest
+addData2Researcher  Time elapsed: 1.514 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ResearcherMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ResearcherMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:104)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 
-addData2User  Time elapsed: 0.237 s  <<< ERROR!
-org.elasticsearch.ElasticsearchException: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: no further information
-	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:63)
-Caused by: java.util.concurrent.ExecutionException: java.net.ConnectException: Connection refused: no further information
-	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:63)
-Caused by: java.net.ConnectException: Connection refused: no further information
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ResearcherMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ResearcherMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:104)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:104)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Researcher(ESAddDataTest.java:104)
 
-addData2Article  Time elapsed: 0.02 s  <<< ERROR!
-org.elasticsearch.action.ActionRequestValidationException: Validation Failed: 1: no requests added;
-	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:93)
+addData2User  Time elapsed: 1.072 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/UserMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.UserMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:49)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 
-addData2Patent  Time elapsed: 0.023 s  <<< ERROR!
-java.lang.NullPointerException: Cannot invoke "com.ruanfen.enums.PatentType.getName()" because the return value of "com.ruanfen.model.Patent.getPatentType()" is null
-	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:138)
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/UserMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.UserMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:49)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:49)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2User(ESAddDataTest.java:49)
 
-addData2Project  Time elapsed: 0.02 s  <<< ERROR!
-org.elasticsearch.action.ActionRequestValidationException: Validation Failed: 1: no requests added;
-	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:210)
+addData2Article  Time elapsed: 1.045 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ArticleMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ArticleMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:74)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
 
->>>>>>> hui
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ArticleMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ArticleMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:74)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:74)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Article(ESAddDataTest.java:74)
+
+addData2Patent  Time elapsed: 1.042 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/PatentMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.PatentMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:130)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/PatentMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.PatentMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:130)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:130)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Patent(ESAddDataTest.java:130)
+
+addData2Project  Time elapsed: 1.042 s  <<< ERROR!
+org.mybatis.spring.MyBatisSystemException: 
+nested exception is org.apache.ibatis.exceptions.PersistenceException: 
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ProjectMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ProjectMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:172)
+Caused by: org.apache.ibatis.exceptions.PersistenceException: 
+
+### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+### The error may exist in com/ruanfen/mapper/ProjectMapper.java (best guess)
+### The error may involve com.ruanfen.mapper.ProjectMapper.selectList
+### The error occurred while executing a query
+### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:172)
+Caused by: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:172)
+Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
+	at com.ruanfen.ESAddDataTest.addData2Project(ESAddDataTest.java:172)
+
