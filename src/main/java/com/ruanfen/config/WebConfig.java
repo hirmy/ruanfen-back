@@ -16,6 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/user/login",
             "/user/register",
             "/user/sendEmail",
+            "/user/allUser",
 
             //搜索无需登录(大概吧)
             "/search/article/allArticle",
