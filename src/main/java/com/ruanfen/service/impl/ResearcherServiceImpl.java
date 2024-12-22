@@ -11,6 +11,8 @@ import com.ruanfen.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ResearcherServiceImpl extends ServiceImpl<ResearcherMapper, Researcher> implements ResearcherService {
 
@@ -26,6 +28,11 @@ public class ResearcherServiceImpl extends ServiceImpl<ResearcherMapper, Researc
     public String getNameById(int id) {
         Researcher researcher = this.getById(id);  // 使用 MyBatis-Plus 获取 Patent 实体
         return researcher != null ? researcher.getName() : null;  // 获取 name 字段
+    }
+
+    @Override
+    public List<Researcher> searchResearchers(String name, String fieldOfResearch, String institution, Boolean claimed) {
+        return researcherMapper.searchResearchers(name, fieldOfResearch, institution, claimed);
     }
 
     @Override

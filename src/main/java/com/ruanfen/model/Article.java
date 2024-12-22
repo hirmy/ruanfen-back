@@ -7,6 +7,7 @@ import lombok.Data;
 import org.apache.ibatis.type.EnumTypeHandler;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @TableName("article")
@@ -31,7 +32,7 @@ public class Article {
     private String fieldOfResearch;
 
     @TableField("publish_time")
-    private LocalDateTime publishTime;
+    private Date publishTime;
 
     @TableField("category_num")
     private String categoryNum;

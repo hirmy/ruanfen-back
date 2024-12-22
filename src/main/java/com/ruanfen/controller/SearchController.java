@@ -23,9 +23,11 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +37,18 @@ public class SearchController {
 
     private RestHighLevelClient client = ESCClientUtil.client();
 
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
     @GetMapping("/article/allArticle")
     public Result<List<ArticleDoc>> searchArticleAll() throws IOException{
         SearchRequest searchRequest = new SearchRequest("article");
+
+        String redisKey = "article:all";
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
 
         //2.创建 SearchSourceBuilder条件构造。
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -58,11 +69,23 @@ public class SearchController {
             docs.add(articleDoc);
         }
 
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofHours(5));
+
         return Result.success(docs);
     }
 
     @GetMapping("/article")
     public Result<List<ArticleDoc>> searchArticleByField(@RequestParam String field, @RequestParam String text) throws IOException {
+        // 使用 field 和 text 生成唯一的缓存键
+        String redisKey = "article:search:" + field + ":" + text;
+
+        // 1. 查询缓存
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("article");
 
@@ -88,6 +111,8 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
+
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofMinutes(10));
 
         return Result.success(docs);
 
@@ -164,6 +189,12 @@ public class SearchController {
 
     @PostMapping("/article/cond")
     public Result<List<ArticleDoc>> searchArticleByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        String cacheKey = "article:" + searchQueryRequest.generateCacheKey();
+
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
+        }
 
         // 1. 创建 SearchRequest，指定索引
         SearchRequest searchRequest = new SearchRequest();
@@ -227,12 +258,24 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
         return Result.success(docs);
     }
 
     @GetMapping("/article/page")
     public Result<List<ArticleDoc>> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
+        // 缓存键生成
+        String cacheKey =  "article:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
+
+        // 先尝试从缓存中获取数据
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("article");
 
@@ -260,6 +303,8 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
+        // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
         return Result.success(docs);
 
@@ -267,6 +312,13 @@ public class SearchController {
 
     @GetMapping("/article/doc")
     public Result<ArticleDoc> searchArticleById(@RequestParam int articleId) throws IOException {
+        String redisKey = "article:doc:" + articleId;
+
+        ArticleDoc cachedArticleDoc = (ArticleDoc) redisTemplate.opsForValue().get(redisKey);
+        if (cachedArticleDoc != null) {
+            return Result.success(cachedArticleDoc);
+        }
+
         // 1.准备Request
         GetRequest request = new GetRequest("article", String.valueOf(articleId));
         // 2.发送请求，得到响应
@@ -275,6 +327,8 @@ public class SearchController {
             // 3.解析响应结果
             String json = response.getSourceAsString();
             ArticleDoc articleDoc = JSON.parseObject(json, ArticleDoc.class);
+
+            redisTemplate.opsForValue().set(redisKey, articleDoc, Duration.ofMinutes(5));
             return Result.success(articleDoc);
         }else {
             return Result.error();
@@ -284,6 +338,13 @@ public class SearchController {
     @GetMapping("/researcher/allResearcher")
     public Result<List<ResearcherDoc>> searchResearcherAll() throws IOException{
         SearchRequest searchRequest = new SearchRequest("researcher");
+
+        String redisKey = "researcher:all";
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
 
         //2.创建 SearchSourceBuilder条件构造。
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -301,12 +362,21 @@ public class SearchController {
             ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
             docs.add(doc);
         }
-
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofHours(5));
         return Result.success(docs);
     }
 
     @GetMapping("/researcher")
     public Result<List<ResearcherDoc>> searchResearcherByField(@RequestParam String field, @RequestParam String text) throws IOException{
+        String redisKey = "researcher:search:" + field + ":" + text;
+
+        // 1. 查询缓存
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>) redisTemplate.opsForValue().get(redisKey);
+        if (cachedDocs != null) {
+            // 如果缓存存在，直接返回
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("researcher");
 
@@ -332,11 +402,18 @@ public class SearchController {
             ResearcherDoc researcherDoc = JSON.parseObject(jsonStr, ResearcherDoc.class);
             docs.add(researcherDoc);
         }
+        redisTemplate.opsForValue().set(redisKey, docs, Duration.ofMinutes(10));
         return Result.success(docs);
     }
 
     @PostMapping("/researcher/cond")
     public Result<List<ResearcherDoc>> searchResearcherByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        String cacheKey = "researcher:" + searchQueryRequest.generateCacheKey();
+
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
+        }
 
         // 1. 创建 SearchRequest，指定索引
         SearchRequest searchRequest = new SearchRequest();
@@ -400,12 +477,24 @@ public class SearchController {
             ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
             docs.add(doc);
         }
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
         return Result.success(docs);
     }
 
     @GetMapping("/researcher/page")
     public Result<List<ResearcherDoc>> pageSearchResearcherByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
+        // 缓存键生成
+        String cacheKey = "researcher:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
+
+        // 先尝试从缓存中获取数据
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("researcher");
 
@@ -440,6 +529,12 @@ public class SearchController {
 
     @GetMapping("/researcher/doc")
     public Result<ResearcherDoc> searchResearcherById(@RequestParam int researcherId) throws IOException {
+        String redisKey = "researcher:doc:" + researcherId;
+
+        ResearcherDoc cachedArticleDoc = (ResearcherDoc) redisTemplate.opsForValue().get(redisKey);
+        if (cachedArticleDoc != null) {
+            return Result.success(cachedArticleDoc);
+        }
         // 1.准备Request
         GetRequest request = new GetRequest("researcher", String.valueOf(researcherId));
         // 2.发送请求，得到响应
@@ -448,6 +543,8 @@ public class SearchController {
             // 3.解析响应结果
             String json = response.getSourceAsString();
             ResearcherDoc doc = JSON.parseObject(json, ResearcherDoc.class);
+
+            redisTemplate.opsForValue().set(redisKey, doc, Duration.ofMinutes(5));
             return Result.success(doc);
         }else {
             return Result.error();

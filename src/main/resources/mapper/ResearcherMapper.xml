@@ -4,4 +4,21 @@
 
 <mapper namespace="com.ruanfen.mapper.ResearcherMapper">
 
+    <select id="searchResearchers" resultType="com.ruanfen.model.Researcher">
+        SELECT * FROM researcher
+        WHERE 1 = 1
+        <if test="name != null">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="fieldOfResearch != null">
+            AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
+        </if>
+        <if test="institution != null">
+            AND institution LIKE CONCAT('%', #{institution}, '%')
+        </if>
+        <if test="claimed != null">
+            AND claimed = #{claimed}
+        </if>
+    </select>
+
 </mapper>

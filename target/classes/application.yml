@@ -20,9 +20,9 @@ spring:
     port: 6379
 #    password: your_password
 
-canal:
-  server: 127.0.0.1:11111
-  destination: example
+#canal:
+#  server: 127.0.0.1:11111
+#  destination: example
 
 
 mybatis-plus:
