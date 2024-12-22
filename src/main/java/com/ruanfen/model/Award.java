@@ -1,24 +1,28 @@
 package com.ruanfen.model;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @TableName("award")
 public class Award {
-    @TableId(value = "award_id", type = IdType.AUTO) // 主键自增
+    @TableId(value = "award_id", type = IdType.AUTO) // 主键，自增
     private Integer awardId;
 
-    private String awardName; // 奖项名称
+    @TableField("award_name") // 显式指定字段名
+    private String awardName;
 
-    private String awardType; // 奖项类型
+    @TableField("award_type")
+    private String awardType;
 
-    private LocalDateTime awardDate; // 获奖时间
+    @TableField("award_date")
+    private LocalDate awardDate;
 
-    private Integer winnerId; // 外键，获奖者ID
+    @TableField("winner_id") // 外键关联的列
+    private Integer winnerId; // 外键，指向 Researcher 的 researcherId
 
-    private String awardDescription; // 奖项介绍
+    @TableField("award_description")
+    private String awardDescription;
 }
