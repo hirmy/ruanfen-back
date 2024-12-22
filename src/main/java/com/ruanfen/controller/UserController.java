@@ -2,8 +2,12 @@ package com.ruanfen.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ruanfen.model.Portal;
+import com.ruanfen.model.Researcher;
 import com.ruanfen.model.Result;
 import com.ruanfen.model.User;
+import com.ruanfen.service.PortalService;
+import com.ruanfen.service.ResearcherService;
 import com.ruanfen.service.UserService;
 import com.ruanfen.service.impl.MailServiceImpl;
 import com.ruanfen.utils.JwtUtil;
@@ -27,6 +31,12 @@ public class UserController {
 
     @Autowired
     private MailServiceImpl mailService;
+
+    @Autowired
+    private PortalService portalService;
+
+    @Autowired
+    private ResearcherService researcherService;
 
     @PostMapping("/sendEmail")
     @ResponseBody
@@ -155,6 +165,31 @@ public class UserController {
         } else {
             return Result.error("用户更新失败，请重试");
         }
+    }
+
+    @PutMapping("/claim")
+    public Result claimPortal(int userId, int portalId){
+        User user = userService.getById(userId);
+        Portal portal = portalService.getById(portalId);
+        if(user == null ){
+            return Result.error("找不到用户");
+        }
+        if(portal == null){
+            return Result.error("找不到门户");
+        }
+
+        int researcherId = portal.getScienceId();
+
+        user.setScienceId(researcherId);
+        portal.setBelongUserId(userId);
+
+        Researcher researcher = researcherService.getById(researcherId);
+        if(researcher == null){
+            return Result.error("找不到对应科研人员");
+        }
+        researcher.setClaimed(true);
+
+        return Result.success();
     }
 
 }
