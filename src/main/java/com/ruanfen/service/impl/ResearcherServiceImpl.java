@@ -28,16 +28,17 @@ public class ResearcherServiceImpl extends ServiceImpl<ResearcherMapper, Researc
     }
 
     @Override
-<<<<<<< HEAD
     public List<Researcher> searchResearchers(String name, String fieldOfResearch, String institution, Boolean claimed) {
         return researcherMapper.searchResearchers(name, fieldOfResearch, institution, claimed);
-=======
-    public String getNameByUrl(String url){
+
+    }
+
+    @Override
+    public String getNameByUrl(String url) {
         QueryWrapper<Researcher> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("url", url);
 
         Researcher researcher = researcherMapper.selectOne(queryWrapper);
         return researcher != null ? researcher.getName() : null;
->>>>>>> zmk
     }
 }
