@@ -10,9 +10,6 @@
         <if test="patentName != null">
             AND patent_name LIKE CONCAT('%', #{patentName}, '%')
         </if>
-        <if test="keywords != null">
-            AND keywords LIKE CONCAT('%', #{keywords}, '%')
-        </if>
         <if test="fieldOfResearch != null">
             AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
         </if>

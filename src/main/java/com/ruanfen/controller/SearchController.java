@@ -6,6 +6,8 @@ import com.ruanfen.Docs.PatentDoc;
 import com.ruanfen.Docs.ProjectDoc;
 import com.ruanfen.Docs.ResearcherDoc;
 import com.ruanfen.model.Result;
+import com.ruanfen.request.SearchField;
+import com.ruanfen.request.SearchQueryRequest;
 import com.ruanfen.utils.ESCClientUtil;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -21,15 +23,12 @@ import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-=======
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
->>>>>>> zmk
 
 import java.io.IOException;
 import java.time.Duration;
@@ -123,8 +122,7 @@ public class SearchController {
 
     }
 
-<<<<<<< HEAD
-=======
+
 //    @PostMapping("/article/multi")
 //    public Result<List<ArticleDoc>> searchArticleByMultiFields(
 //            @RequestBody SearchQueryRequest queryRequest) throws IOException {
@@ -270,7 +268,6 @@ public class SearchController {
         return Result.success(docs);
     }
 
->>>>>>> zmk
     @GetMapping("/article/page")
     public Result<List<ArticleDoc>> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
         // 缓存键生成
@@ -414,8 +411,7 @@ public class SearchController {
         return Result.success(docs);
     }
 
-<<<<<<< HEAD
-=======
+
     @PostMapping("/researcher/cond")
     public Result<List<ResearcherDoc>> searchResearcherByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
         String cacheKey = "researcher:" + searchQueryRequest.generateCacheKey();
@@ -492,7 +488,6 @@ public class SearchController {
         return Result.success(docs);
     }
 
->>>>>>> zmk
     @GetMapping("/researcher/page")
     public Result<List<ResearcherDoc>> pageSearchResearcherByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
         // 缓存键生成

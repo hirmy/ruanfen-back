@@ -14,8 +14,5 @@ public interface ArticleMapper extends BaseMapper<Article> {
                                  @Param("fieldOfResearch") String fieldOfResearch,
                                  @Param("publishTimeFrom") String publishTimeFrom,
                                  @Param("publishTimeTo") String publishTimeTo);
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> zmk

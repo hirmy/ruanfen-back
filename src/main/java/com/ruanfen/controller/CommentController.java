@@ -43,14 +43,12 @@ public class CommentController {
     }
 
     @GetMapping("/find")
-    public Result<Comment> findCommentByAchieve(@RequestParam("achievementType") int achievementType,@RequestParam("achievementId") int achievementId) {
-        Comment comment = commentService.findCommentByAchieve(achievementType,achievementId);
+    public Result<Comment> findCommentByAchieve(@RequestParam("achievementType") int achievementType, @RequestParam("achievementId") int achievementId) {
+        Comment comment = commentService.findCommentByAchieve(achievementType, achievementId);
         if (comment == null) {
             return Result.error("评论不存在");
         }
         return Result.success(comment);
     }
-
-
 
 }

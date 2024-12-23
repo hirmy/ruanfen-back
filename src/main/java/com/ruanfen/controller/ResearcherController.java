@@ -29,59 +29,39 @@ public class ResearcherController {
     @Autowired
     private ResearcherService researcherService;
 
-<<<<<<< HEAD
-=======
     @Autowired
     private SearchService searchService;
 
->>>>>>> zmk
     @PostMapping("/add")
     public Result addResearcher(@RequestBody Researcher researcher) throws IOException {
         researcherService.addResearcher(researcher);
-<<<<<<< HEAD
-=======
 
         searchService.addResearcherDoc(researcher);
->>>>>>> zmk
         return Result.success("研究人员添加成功");
     }
 
     @DeleteMapping("/remove")
-<<<<<<< HEAD
-    public Result removeResearcher(@RequestParam("researcherId") int researcherId) {
-=======
     public Result removeResearcher(@RequestParam("researcherId") int researcherId) throws IOException {
->>>>>>> zmk
         if (researcherService.getById(researcherId) == null) {
             return Result.error("研究人员不存在，无法删除");
         }
 
         boolean isRemoved = researcherService.removeById(researcherId);
         if (isRemoved) {
-<<<<<<< HEAD
-=======
             searchService.removeResearcherDoc(researcherId);
->>>>>>> zmk
             return Result.success("研究人员删除成功");
         }
         return Result.error("研究人员删除失败，请重试");
     }
 
     @PutMapping("/update")
-<<<<<<< HEAD
-    public Result updateResearcher(@RequestParam("researcherId") int researcherId, @RequestBody Researcher researcher) {
-=======
     public Result updateResearcher(@RequestParam("researcherId") int researcherId, @RequestBody Researcher researcher) throws IOException {
->>>>>>> zmk
         if (researcherService.getById(researcherId) == null) {
             return Result.error("研究人员不存在，无法更新");
         }
         boolean isUpdated = researcherService.updateById(researcher);
         if (isUpdated) {
-<<<<<<< HEAD
-=======
             searchService.updateResearcherDoc(researcherId, researcher);
->>>>>>> zmk
             return Result.success("研究人员信息更新成功");
         }
         return Result.error("研究人员信息更新失败，请重试");
@@ -106,8 +86,4 @@ public class ResearcherController {
         List<Researcher> researchers = researcherService.searchResearchers(name, fieldOfResearch, institution, claimed);
         return Result.success(researchers);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> zmk

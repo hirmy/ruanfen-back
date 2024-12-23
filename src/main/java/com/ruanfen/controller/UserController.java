@@ -2,8 +2,13 @@ package com.ruanfen.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ruanfen.enums.Role;
+import com.ruanfen.model.Portal;
+import com.ruanfen.model.Researcher;
 import com.ruanfen.model.Result;
 import com.ruanfen.model.User;
+import com.ruanfen.service.PortalService;
+import com.ruanfen.service.ResearcherService;
 import com.ruanfen.service.UserService;
 import com.ruanfen.service.impl.MailServiceImpl;
 import com.ruanfen.utils.JwtUtil;
@@ -28,42 +33,37 @@ public class UserController {
     @Autowired
     private MailServiceImpl mailService;
 
+    @Autowired
+    private PortalService portalService;
+
+    @Autowired
+    private ResearcherService researcherService;
+
     @PostMapping("/sendEmail")
     @ResponseBody
-    public Result sendEmail(@RequestParam("email") String email,@RequestParam("code") String code, HttpSession httpSession){
+    public Result sendEmail(@RequestParam("email") String email, @RequestParam("code") String code){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email", email);
         List<User> users = userService.list(wrapper);
         if(!users.isEmpty()){
             return Result.error("邮箱已注册");
         }
-        mailService.sendMimeMail(email,code, httpSession);
+        mailService.sendMimeMail(email,code);
 
         return Result.success();
     }
 
     @PostMapping("/register")
-    public Result register(String username, String password, String code, HttpSession session){
-        String email = (String) session.getAttribute("email");
-        String trueCode = (String) session.getAttribute("code");
+    public Result register(String username, String password){
 
         //获取表单中的提交的验证信息
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             return Result.error("用户名或密码不能为空！");
         }
 
-        if(code == null || code.isEmpty()){
-            return Result.error("请填写验证码");
-        }
 
-        //如果email数据为空，或者不一致，注册失败
-        if (email == null || email.isEmpty()){
-            return Result.error("请重新注册。");
-        }else if (!code.equals(trueCode)){
-            //return "error,请重新注册";
-            return Result.error("验证码不正确！");
-        }
-        userService.register(username, password, email);
+
+        userService.register(username, password);
         return Result.success();
     }
 
@@ -155,6 +155,38 @@ public class UserController {
         } else {
             return Result.error("用户更新失败，请重试");
         }
+    }
+
+    @PutMapping("/claim")
+    public Result claimPortal(int userId, int portalId){
+        User user = userService.getById(userId);
+        Portal portal = portalService.getById(portalId);
+        if(user == null ){
+            return Result.error("找不到用户");
+        }
+        if(portal == null){
+            return Result.error("找不到门户");
+        }
+
+        int researcherId = portal.getScienceId();
+
+        user.setScienceId(researcherId);
+        user.setRole(Role.researcher);
+        userService.updateById(user);
+
+        portal.setBelongUserId(userId);
+        portal.setIsClaimed(true);
+        portal.setClaimedTime(LocalDateTime.now());
+        portalService.updateById(portal);
+
+        Researcher researcher = researcherService.getById(researcherId);
+        if(researcher == null){
+            return Result.error("找不到对应科研人员");
+        }
+        researcher.setClaimed(true);
+        researcherService.updateById(researcher);
+
+        return Result.success();
     }
 
 }
