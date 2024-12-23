@@ -22,6 +22,7 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
+import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -251,6 +252,12 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
+            String orderField = searchQueryRequest.getOrderField();
+            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
+            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
+        }
+
         searchRequest.source(searchSourceBuilder);
 
         // 7. 执行搜索请求
@@ -471,6 +478,12 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
+            String orderField = searchQueryRequest.getOrderField();
+            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
+            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
+        }
+
         searchRequest.source(searchSourceBuilder);
 
         // 7. 执行搜索请求

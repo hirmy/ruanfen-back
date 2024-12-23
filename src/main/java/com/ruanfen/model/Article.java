@@ -45,4 +45,10 @@ public class Article {
     @TableField("references_ids")
     private String referencesIds; // 存储引用文献 ID 串
 
+    private String referencedWorks;
+
+    private String researcherName;
+
+    private String researcherInstitution;
+
 }

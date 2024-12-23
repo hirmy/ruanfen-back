@@ -8,10 +8,23 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class SearchQueryRequest {
     private List<SearchField> orFieldsAndTexts;  // 查询字段和文本对
     private List<SearchField> AndFieldsAndTexts;  // 查询字段和文本对
+    private String orderField;
+    private int desc;
+
+    public SearchQueryRequest(List<SearchField> orFieldsAndTexts,List<SearchField> andFieldsAndTexts, String orderField, int desc){
+        this.orderField = orderField;
+        this.AndFieldsAndTexts = andFieldsAndTexts;
+        if(orderField == null){
+            this.orderField = null;
+            this.desc = -1;
+        }else {
+            this.orderField = orderField;
+            this.desc = desc;
+        }
+    }
 
     // 生成 Redis 缓存键的方法
     public String generateCacheKey() {

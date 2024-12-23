@@ -85,4 +85,14 @@ public class ArticleController {
         return Result.success(articles);
     }
 
+    @GetMapping("/find/urls")
+    public Result<List<Article>> searchArticlesByUrl(@RequestBody List<String> urls){
+        List<Article> articles = articleService.searchArticlesByUrls(urls);
+        if (articles != null && !articles.isEmpty()) {
+            return Result.success(articles);  // 返回查询结果
+        } else {
+            return Result.error("没有找到相关文章");
+        }
+    }
+
 }

@@ -58,6 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/article/find",
             "/article/allArticles",
             "/article/search",
+            "/article/find/urls",
 
             "/patent/find",
             "/patent/search",
