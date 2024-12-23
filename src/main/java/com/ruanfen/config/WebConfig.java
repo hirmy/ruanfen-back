@@ -43,7 +43,8 @@ public class WebConfig implements WebMvcConfigurer {
             "/search/project",
             "/search/project/page",
             "/search/project/doc",
-            "/search/project/cond"
+            "/search/project/cond",
+
 
     };
 

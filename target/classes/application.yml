@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/academic
+    url: jdbc:mysql://113.44.154.184:3306/academic
     username: root
-    password: 123456789zmk
+    password: RUANFEN-front
   mail:
     host: smtp.qq.com
     username: 2381854695@qq.com
@@ -16,8 +16,9 @@ spring:
     default-encoding: UTF-8
   # Redis 连接信息
   redis:
-    host: 127.0.0.1
+    host: 192.168.0.141
     port: 6379
+    database: 0
 #    password: your_password
 
 #canal:

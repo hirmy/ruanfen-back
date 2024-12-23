@@ -41,40 +41,29 @@ public class UserController {
 
     @PostMapping("/sendEmail")
     @ResponseBody
-    public Result sendEmail(@RequestParam("email") String email,@RequestParam("code") String code, HttpSession httpSession){
+    public Result sendEmail(@RequestParam("email") String email, @RequestParam("code") String code){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email", email);
         List<User> users = userService.list(wrapper);
         if(!users.isEmpty()){
             return Result.error("邮箱已注册");
         }
-        mailService.sendMimeMail(email,code, httpSession);
+        mailService.sendMimeMail(email,code);
 
         return Result.success();
     }
 
     @PostMapping("/register")
-    public Result register(String username, String password, String code, HttpSession session){
-        String email = (String) session.getAttribute("email");
-        String trueCode = (String) session.getAttribute("code");
+    public Result register(String username, String password){
 
         //获取表单中的提交的验证信息
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             return Result.error("用户名或密码不能为空！");
         }
 
-        if(code == null || code.isEmpty()){
-            return Result.error("请填写验证码");
-        }
 
-        //如果email数据为空，或者不一致，注册失败
-        if (email == null || email.isEmpty()){
-            return Result.error("请重新注册。");
-        }else if (!code.equals(trueCode)){
-            //return "error,请重新注册";
-            return Result.error("验证码不正确！");
-        }
-        userService.register(username, password, email);
+
+        userService.register(username, password);
         return Result.success();
     }
 
