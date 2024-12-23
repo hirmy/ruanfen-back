@@ -1,7 +1,6 @@
 package com.ruanfen.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruanfen.model.Portal;
-import com.ruanfen.model.Project;
 import com.ruanfen.model.Result;
 import com.ruanfen.service.PortalService;
 import org.springframework.beans.factory.annotation.Autowired;

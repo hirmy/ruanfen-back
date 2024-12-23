@@ -252,6 +252,9 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+
+
+
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
             String orderField = searchQueryRequest.getOrderField();
             SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
@@ -478,6 +481,9 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+
+        searchSourceBuilder.size(10);  // 限制返回 10 条数据
+
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
             String orderField = searchQueryRequest.getOrderField();
             SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;

@@ -5,140 +5,115 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb218270-bf8e-4b39-abba-0f1e98a56d94" name="Changes" comment="merge">
-      <change afterPath="$PROJECT_DIR$/.vscode/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/AwardDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/MessageDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ReviewRecordsDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/AwardConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/MessageConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/ReviewRecordsConstant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/AwardController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/MessageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ReviewRecordsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/enums/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/enums/RequestType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/AwardMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/MessageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/ReviewRecordsMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/ReviewRecords.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/AwardService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/MessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/ReviewRecordsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/AwardServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MessageServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ReviewRecordsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/AwardMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/MessageMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/ReviewRecords.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/AcademicApplication.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/AwardDoc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/MessageDoc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ResearcherDoc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ReviewRecordsDoc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/UserDoc.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/AwardConstant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/MessageConstant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ReviewRecordsConstant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/UserConstant.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/AwardController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/MessageController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/PortalController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ProjectController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ReviewRecordsController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/UserController$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Category.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/FieldOfResearch.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/PatentType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/RequestType.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Role.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/exception/GlobalExcaptionHandler.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/interceptors/LoginInterceptor.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/AwardMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/MessageMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/PortalMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ProjectMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ReviewRecordsMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/UserMapper.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Message.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Project.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Researcher.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/ReviewRecords.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/request/SearchField.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/AwardService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/MessageService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/PortalService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ProjectService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ReviewRecordsService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/UserService.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/AwardServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/MessageServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/PortalServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ProjectServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ReviewRecordsServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ESCClientUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/JwtUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/Md5Util.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ThreadLocalUtil.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mapper/AwardMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mapper/MessageMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mapper/ReviewRecords.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/CommentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/PortalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/PortalController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ResearcherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ResearcherController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/ArticleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/ArticleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/ProjectMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/ProjectMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Award.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Award.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Comment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/CommentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/CommentServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ResearcherServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ResearcherServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/utils/ESCClientUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/utils/ESCClientUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/ArticalMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/PatentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/PatentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESGetTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESGetTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/AcademicApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/AcademicApplication.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ArticleDoc$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ArticleDoc$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ArticleDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ArticleDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/AwardDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/AwardDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/MessageDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/MessageDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/PatentDoc$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/PatentDoc$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/PatentDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/PatentDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ProjectDoc$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ProjectDoc$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ProjectDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ProjectDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ResearcherDoc$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ResearcherDoc$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ResearcherDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ResearcherDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ReviewRecordsDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/ReviewRecordsDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/UserDoc.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/Docs/UserDoc.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/config/CorsConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/config/CorsConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/config/RedisConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/config/RedisConfig.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/config/WebConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/config/WebConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ArticleConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ArticleConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/AwardConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/AwardConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/MessageConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/MessageConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/PatentConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/PatentConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ProjectConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ProjectConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ResearcherConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ResearcherConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ReviewRecordsConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/ReviewRecordsConstant.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/UserConstant.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/constants/UserConstant.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ArticleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ArticleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/AwardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/AwardController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/CommentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/CommentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/MessageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/MessageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/PatentController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/PatentController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/PortalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/PortalController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ProjectController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ProjectController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ResearcherController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ResearcherController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ReviewRecordsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/ReviewRecordsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/SearchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/SearchController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/UserController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/UserController$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Category.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Category.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/FieldOfResearch.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/FieldOfResearch.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/PatentType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/PatentType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/RequestType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/RequestType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/enums/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/exception/GlobalExcaptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/exception/GlobalExcaptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/interceptors/LoginInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/interceptors/LoginInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ArticleMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ArticleMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/AwardMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/AwardMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/CommentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/CommentMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/MessageMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/MessageMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/PatentMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/PatentMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/PortalMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/PortalMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ProjectMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ProjectMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ResearcherMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ResearcherMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ReviewRecordsMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/ReviewRecordsMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/UserMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/mapper/UserMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Article.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Award.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Award.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Comment.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Comment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Message.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Message.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Patent.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Patent.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Portal.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Portal.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Project.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Researcher.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Researcher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Result.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Result.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/ReviewRecords.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/ReviewRecords.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/project.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/request/SearchField.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/request/SearchField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/request/SearchQueryRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/request/SearchQueryRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ArticleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ArticleService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/AwardService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/AwardService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/CommentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/CommentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/MessageService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/MessageService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/PatentService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/PatentService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/PortalService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/PortalService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ProjectService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ProjectService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ResearcherService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ResearcherService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ReviewRecordsService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/ReviewRecordsService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/SearchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/SearchService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ArticleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ArticleServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/AwardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/AwardServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/CommentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/CommentServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/MailServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/MailServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/MessageServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/MessageServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/PatentServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/PatentServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/PortalServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/PortalServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ProjectServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ProjectServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ResearcherServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ResearcherServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/ArticalMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/PatentMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/PatentMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/ResearcherMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/ResearcherMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/UserMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ruanfen/AppTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ruanfen/ESAddDataTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ruanfen/ESAddIndexTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ruanfen/ESGetTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ReviewRecordsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/ReviewRecordsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/SearchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/SearchServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ESCClientUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ESCClientUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/JwtUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/JwtUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/Md5Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/Md5Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ThreadLocalUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/utils/ThreadLocalUtil.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/接口文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/接口文档.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,35 +165,35 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "Merging main",
-    "last_opened_file_path": "D:/Work5/A_Project/ruanfen/academic/src/main/java/com/ruanfen/vo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.customizations",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Work5/A_Project/ruanfen/academic/src/main/java/com/ruanfen/vo&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.customizations&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -266,22 +241,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ESAddDataTest.addData2Patent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="academic" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.ruanfen.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.ruanfen" />
-      <option name="MAIN_CLASS_NAME" value="com.ruanfen.ESAddDataTest" />
-      <option name="METHOD_NAME" value="addData2Patent" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ESAddDataTest.addData2Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="academic" />
       <extension name="coverage">
@@ -293,6 +252,22 @@
       <option name="PACKAGE_NAME" value="com.ruanfen" />
       <option name="MAIN_CLASS_NAME" value="com.ruanfen.ESAddDataTest" />
       <option name="METHOD_NAME" value="addData2Project" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ESAddDataTest.addData2Researcher" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="academic" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ruanfen.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ruanfen" />
+      <option name="MAIN_CLASS_NAME" value="com.ruanfen.ESAddDataTest" />
+      <option name="METHOD_NAME" value="addData2Researcher" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -314,13 +289,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="AcademicApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="academic" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ruanfen.AcademicApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ESAddDataTest.addData2Researcher" />
         <item itemvalue="JUnit.ESAddDataTest.addData2Article" />
+        <item itemvalue="JUnit.ESAddIndexTest.createIndex" />
         <item itemvalue="JUnit.AppTest.testArticle" />
         <item itemvalue="JUnit.ESAddDataTest.addData2Project" />
-        <item itemvalue="JUnit.ESAddIndexTest.createIndex" />
-        <item itemvalue="JUnit.ESAddDataTest.addData2Patent" />
       </list>
     </recent_temporary>
   </component>
@@ -361,6 +343,7 @@
       <workItem from="1734755335540" duration="12065000" />
       <workItem from="1734771206184" duration="10078000" />
       <workItem from="1734830613298" duration="5460000" />
+      <workItem from="1734971568602" duration="3773000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />
@@ -379,6 +362,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge" />
     <option name="LAST_COMMIT_MESSAGE" value="merge" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java</url>
+          <line>484</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

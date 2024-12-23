@@ -36,6 +36,9 @@ public class SearchQueryRequest {
         this.getAndFieldsAndTexts().forEach(field -> {
             cacheKey.append(field.getField()).append(":").append(field.getText()).append(":AND;");
         });
+        if(this.getOrderField()!= null){
+            cacheKey.append(this.getOrderField()).append(":").append(String.valueOf(this.desc));
+        }
 
         return cacheKey.toString();
     }

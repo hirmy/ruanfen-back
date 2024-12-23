@@ -26,8 +26,7 @@ public class ArticleDoc {
     public ArticleDoc(Article article){
         articleId = Long.valueOf(article.getArticleId());
         articleName = article.getArticleName();
-        //researcherName
-        researcherName = null;
+        researcherName = article.getResearcherName();
         source = article.getSource();
         publishTime = article.getPublishTime();
         fieldOfResearch = article.getFieldOfResearch();

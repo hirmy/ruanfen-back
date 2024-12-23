@@ -31,12 +31,7 @@ public class MailServiceImpl {
     @Value("${spring.mail.username}")
     private String from;
 
-    /**
-     * 给前端输入的邮箱，发送验证码
-     * @param email
-     * @param session
-     * @return
-     */
+
     public boolean sendMimeMail( String email, String code) {
         try {
             SimpleMailMessage mailMessage = new SimpleMailMessage();

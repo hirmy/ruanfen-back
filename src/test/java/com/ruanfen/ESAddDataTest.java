@@ -67,7 +67,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Article() throws IOException{
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://127.0.0.1:9200")
+                HttpHost.create("http://1.92.158.251:9200")
         ));
 
         List<Article> articles = articleService.list();
@@ -79,9 +79,6 @@ public class ESAddDataTest {
             // 2.1.转换为文档类型
             ArticleDoc articleDoc = new ArticleDoc(article);
 
-            String researcherUrl = article.getResearcherUrl();
-            String researcherName = researcherService.getNameByUrl(researcherUrl);
-            articleDoc.setResearcherName(researcherName);
 
             // 2.2.创建新增文档的Request对象
             request.add(new IndexRequest("article")
@@ -97,7 +94,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Researcher() throws IOException{
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://127.0.0.1:9200")
+                HttpHost.create("http://1.92.158.251:9200")
         ));
 
         List<Researcher> researchers = researcherService.list();
