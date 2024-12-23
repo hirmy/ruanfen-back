@@ -10,7 +10,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/portal")
-public class PortalController {
+public class
+PortalController {
     @Autowired
     private PortalService portalService;
     @PostMapping("/add")
