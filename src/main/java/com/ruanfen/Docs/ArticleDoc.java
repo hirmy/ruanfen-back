@@ -36,6 +36,10 @@ public class ArticleDoc {
     }
 
     public void setResearcherName(String researcherName){
+        if(researcherName == null){
+            this.researcherName = "DEFAULT";
+            return;
+        }
         this.researcherName = researcherName;
     }
 
