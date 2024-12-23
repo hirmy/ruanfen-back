@@ -30,7 +30,6 @@ public class ESAddDataTest {
     @Autowired
     private ArticleService articleService;
 
-
     @Autowired
     private ResearcherService researcherService;
 
@@ -62,8 +61,8 @@ public class ESAddDataTest {
         // 3.发送请求
         client.bulk(request, RequestOptions.DEFAULT);
         this.client.close();
-
     }
+
 
     @Test
     public void addData2Article() throws IOException{
