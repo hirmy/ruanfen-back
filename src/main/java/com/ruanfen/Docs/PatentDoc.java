@@ -40,7 +40,7 @@ public class PatentDoc {
             {
                 put("patentName", "text");
                 put("patentType", "keyword");
-                put("fieldOfResearch", "keyword");
+                put("fieldOfResearch", "text");
                 put("applicants", "text");
                 put("inventorsName", "text");
                 put("all", "text");

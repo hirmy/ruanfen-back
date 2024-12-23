@@ -34,7 +34,7 @@ public class ResearcherDoc {
         Map<String, String> fieldTypeMap = new HashMap<String, String>() {{
             put("name", "text");
             put("institution", "text");
-            put("fieldOfResearch", "keyword");
+            put("fieldOfResearch", "text");
             put("all", "text");
         }};
 

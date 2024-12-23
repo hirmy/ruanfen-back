@@ -24,7 +24,7 @@ public class PatentConstant {
                     "index": "false"
                   },
                   "fieldOfResearch":{
-                    "type": "keyword",
+                    "type": "text",
                     "copy_to": "all"
                   },
                   "applicants":{
