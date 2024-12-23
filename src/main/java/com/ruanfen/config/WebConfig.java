@@ -45,6 +45,26 @@ public class WebConfig implements WebMvcConfigurer {
             "/search/project/doc",
             "/search/project/cond",
 
+            "/project/find",
+            "/project/allProjects",
+            "/project/search",
+
+            "/comment/findById",
+            "/comment/find",
+
+            "/portal/find",
+            "/portal/allPortals",
+
+            "/article/find",
+            "/article/allArticles",
+            "/article/search",
+
+            "/patent/find",
+            "/patent/search",
+
+            "/researcher/find",
+            "/researcher/search",
+
 
     };
 

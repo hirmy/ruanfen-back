@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruanfen.mapper.ProjectMapper">
+
+    <select id="searchProjects" resultType="com.ruanfen.model.Project">
+        SELECT * FROM project
+        WHERE 1 = 1
+        <if test="projectName != null">
+            AND project_name LIKE CONCAT('%', #{projectName}, '%')
+        </if>
+        <if test="projectType != null">
+            AND project_Type LIKE CONCAT('%', #{projectType}, '%')
+        </if>
+        <if test="fieldOfResearch != null">
+            AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
+        </if>
+    </select>
+
+</mapper>
