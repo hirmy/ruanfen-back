@@ -95,4 +95,19 @@ public class ArticleController {
         }
     }
 
+    @PutMapping("/addView")
+    public Result addArticleView(@RequestParam int articleId){
+        Article article = articleService.getById(articleId);
+        if(article == null){
+            return Result.error("找不到文献");
+        }
+        article.addView();
+        if(!articleService.updateById(article)){
+            return Result.error("view更新失败");
+        }
+
+        return Result.success();
+
+
+    }
 }

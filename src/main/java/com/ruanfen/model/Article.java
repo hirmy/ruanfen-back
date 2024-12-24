@@ -48,4 +48,8 @@ public class Article {
 
     private String researcherInstitution;
 
+    public void addView(){
+        this.views++;
+    }
+
 }
