@@ -18,6 +18,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/api/user/sendEmail",
             "/api/user/allUser",
             "/api/user/userInfo/find",
+            "/api/user/claim",
 
             //搜索无需登录(大概吧)
             "/api/search/article/allArticle",

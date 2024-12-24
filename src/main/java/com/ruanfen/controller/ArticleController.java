@@ -76,11 +76,11 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    public Result<List<Article>> searchArticle(@RequestParam(value = "article_name", required = false) String articleName,
+    public Result<List<Article>> searchArticle(@RequestParam(value = "articleName", required = false) String articleName,
                                                @RequestParam(value = "keywords", required = false) String keywords,
-                                               @RequestParam(value = "field_of_research", required = false) String fieldOfResearch,
-                                               @RequestParam(value = "publish_time_from", required = false) String publishTimeFrom,
-                                               @RequestParam(value = "publish_time_to", required = false) String publishTimeTo) {
+                                               @RequestParam(value = "fieldOfResearch", required = false) String fieldOfResearch,
+                                               @RequestParam(value = "publishTimeFrom", required = false) String publishTimeFrom,
+                                               @RequestParam(value = "publishTimeTo", required = false) String publishTimeTo) {
         List<Article> articles = articleService.searchArticles(articleName, keywords, fieldOfResearch, publishTimeFrom, publishTimeTo);
         return Result.success(articles);
     }
