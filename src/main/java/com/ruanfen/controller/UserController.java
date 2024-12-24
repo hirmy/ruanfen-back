@@ -7,6 +7,7 @@ import com.ruanfen.model.Portal;
 import com.ruanfen.model.Researcher;
 import com.ruanfen.model.Result;
 import com.ruanfen.model.User;
+import com.ruanfen.result.LoginResult;
 import com.ruanfen.service.PortalService;
 import com.ruanfen.service.ResearcherService;
 import com.ruanfen.service.UserService;
@@ -68,7 +69,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public Result<String> login(String username, String password){
+    public Result<LoginResult> login(String username, String password){
         User existUser = userService.findByUsername(username);
         if(existUser == null){
             return Result.error("用户不存在");
@@ -91,8 +92,7 @@ public class UserController {
                 }
             };
             String token = JwtUtil.genToken(claims);
-            return Result.success(token);
-
+            return Result.success(new LoginResult(token, existUser));
         }
 
         return Result.error("密码错误");
