@@ -85,7 +85,7 @@ public class ArticleController {
         return Result.success(articles);
     }
 
-    @GetMapping("/find/urls")
+    @PostMapping("/find/urls")
     public Result<List<Article>> searchArticlesByUrl(@RequestBody List<String> urls){
         List<Article> articles = articleService.searchArticlesByUrls(urls);
         if (articles != null && !articles.isEmpty()) {

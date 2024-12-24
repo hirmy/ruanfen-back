@@ -253,8 +253,7 @@ public class SearchController {
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
 
-
-
+        //排序
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
             String orderField = searchQueryRequest.getOrderField();
             SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
@@ -306,6 +305,7 @@ public class SearchController {
         searchSourceBuilder.from((page-1) * pageSize); // 起始位置
         searchSourceBuilder.size(pageSize); // 每页显示数量
 
+
         searchRequest.source(searchSourceBuilder);
 
         // 执行搜索
@@ -324,6 +324,58 @@ public class SearchController {
         return Result.success(docs);
 
     }
+
+    @GetMapping("/article/page/order")
+    public Result<List<ArticleDoc>> pageSearchArticleByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException {
+        // 缓存键生成
+        String cacheKey =  "article:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;
+
+        // 先尝试从缓存中获取数据
+        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("article");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        if(ArticleDoc.getFieldType(field).equals("text")){
+            searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
+        }else if(ArticleDoc.getFieldType(field).equals("keyword")){
+            searchSourceBuilder.query(QueryBuilders.termQuery(field, text));
+        }else {
+            return Result.error("该字段无法搜索");
+        }
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
+
+        //排序
+        SortOrder sortOrder = desc == 1 ? SortOrder.DESC : SortOrder.ASC;
+        searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
+
+        searchRequest.source(searchSourceBuilder);
+
+        // 执行搜索
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        // 处理响应结果
+        List<ArticleDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
+            docs.add(articleDoc);
+        }
+        // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+
+        return Result.success(docs);
+
+    }
+
 
     @GetMapping("/article/doc")
     public Result<ArticleDoc> searchArticleById(@RequestParam int articleId) throws IOException {
@@ -482,8 +534,8 @@ public class SearchController {
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
 
-        searchSourceBuilder.size(10);  // 限制返回 10 条数据
 
+        //排序
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
             String orderField = searchQueryRequest.getOrderField();
             SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
@@ -534,6 +586,55 @@ public class SearchController {
         }
         searchSourceBuilder.from((page-1) * pageSize); // 起始位置
         searchSourceBuilder.size(pageSize); // 每页显示数量
+
+        searchRequest.source(searchSourceBuilder);
+
+        // 执行搜索
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+
+        // 处理响应结果
+        List<ResearcherDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            ResearcherDoc researcherDoc = JSON.parseObject(jsonStr, ResearcherDoc.class);
+            docs.add(researcherDoc);
+        }
+
+        return Result.success(docs);
+    }
+
+    @GetMapping("/researcher/page/order")
+    public Result<List<ResearcherDoc>> pageSearchResearcherByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException{
+        // 缓存键生成
+        String cacheKey = "researcher:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;;
+
+        // 先尝试从缓存中获取数据
+        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("researcher");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        if(ResearcherDoc.getFieldType(field).equals("text")){
+            searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
+        }else if(ResearcherDoc.getFieldType(field).equals("keyword")){
+            searchSourceBuilder.query(QueryBuilders.termQuery(field, text));
+        }else {
+            return Result.error("该字段无法搜索");
+        }
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
+
+        //排序
+        SortOrder sortOrder = desc == 1 ? SortOrder.DESC : SortOrder.ASC;
+        searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
 
         searchRequest.source(searchSourceBuilder);
 
