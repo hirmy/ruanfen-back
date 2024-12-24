@@ -176,7 +176,7 @@ public class UserController {
 
         portal.setBelongUserId(userId);
         portal.setIsClaimed(true);
-        portal.setClaimedTime(LocalDateTime.now());
+        portal.setClaimedTime(new Date());
         portalService.updateById(portal);
 
         Researcher researcher = researcherService.getById(researcherId);

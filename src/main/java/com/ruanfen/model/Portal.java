@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @TableName("portal")
@@ -18,10 +19,10 @@ public class Portal {
     private Integer belongUserId;
 
     @TableField("created_time")  // 创建时间
-    private LocalDateTime createdTime;
+    private Date createdTime;
 
     @TableField("claimed_time")  // 认领时间
-    private LocalDateTime claimedTime;
+    private Date claimedTime;
 
     @TableField("administrator_id")  // 外键，处理门户认领审核的管理员ID
     private Integer administratorId;
