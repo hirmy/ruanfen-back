@@ -1,7 +1,6 @@
 package com.ruanfen.constants;
 
 public class ArticleConstant {
-    //researcher_name需凭int外键获取
     public static final String MAPPING_TEMPLATE = """
             {
               "mappings": {
@@ -16,6 +15,7 @@ public class ArticleConstant {
                   },
                   "researcherName":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
                   "source":{
@@ -29,7 +29,11 @@ public class ArticleConstant {
                   },
                   "fieldOfResearch":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
+                  },
+                  "views":{
+                    "type": "integer"
                   },
                   "all":{
                     "type": "text",

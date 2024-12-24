@@ -1,10 +1,9 @@
 package com.ruanfen.model;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.ruanfen.enums.FieldOfResearch;
 import com.ruanfen.enums.PatentType;
 import lombok.Data;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @TableName("patent")
@@ -18,13 +17,14 @@ public class Patent {
     private String applicationNum;  //申请号
     private String publicationNum;  //公布号
     private String authorizationNum;    //授权号
-    private LocalDateTime applicationDate;
-    private LocalDateTime publicationDate;
-    private LocalDateTime authorizationDate;
+    private Date applicationDate;
+    private Date publicationDate;
+    private Date authorizationDate;
     private String mainClaim;
     private String abstractText; //摘要 避免冲突，重命名为 `abstractContent`
     private String applicants;
     private String inventorsId;
+    private String inventorsName;
     private String fieldOfResearch;
     private Integer views;
 }

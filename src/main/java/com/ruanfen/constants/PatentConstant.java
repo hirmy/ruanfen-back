@@ -15,16 +15,13 @@ public class PatentConstant {
                     "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
-                  "patentType":{
-                    "type": "keyword",
-                    "copy_to": "all"
-                  },
                   "applicationDate":{
                     "type": "date",
                     "index": "false"
                   },
                   "fieldOfResearch":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
                   "applicants":{
@@ -34,6 +31,7 @@ public class PatentConstant {
                   },
                   "inventorsName":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
                    "views":{
@@ -41,7 +39,7 @@ public class PatentConstant {
                   },
                   "all":{
                     "type": "text",
-                    "analyzer": "ik_smart"
+                    "analyzer": "ik_max_word"
                   }
                 }
               }

@@ -731,8 +731,104 @@ public class SearchController {
         return Result.success(docs);
     }
 
+
+    @PostMapping("/patent/cond")
+    public Result<List<PatentDoc>> searchPatentByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        String cacheKey = "patent:" + searchQueryRequest.generateCacheKey();
+
+        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
+        }
+
+        // 1. 创建 SearchRequest，指定索引
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("patent");
+
+        // 2. 创建 SearchSourceBuilder，用于构建查询条件
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        // 3. 创建 bool 查询，支持多个子查询条件
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+
+        // 4. 处理 OR 条件部分：a || b
+        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = PatentDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
+            } else if ("keyword".equals(fieldType)) {
+                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+
+        // 将 OR 查询部分加入主查询
+        boolQuery.must(orQuery);
+
+        // 5. 处理 AND 条件部分：c && d && e
+        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldText = searchField.getText();
+
+            String fieldType = PatentDoc.getFieldType(fieldName); // 获取字段类型
+
+            if ("text".equals(fieldType)) {
+                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
+            } else if ("keyword".equals(fieldType)) {
+                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
+            } else {
+                return Result.error("该字段无法搜索");
+            }
+        }
+        boolQuery.must(andQuery);
+
+        // 6. 设置查询条件
+        searchSourceBuilder.query(boolQuery);
+
+        //排序
+        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
+            String orderField = searchQueryRequest.getOrderField();
+            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
+            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
+        }
+
+        searchRequest.source(searchSourceBuilder);
+
+        // 7. 执行搜索请求
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        // 8. 处理响应结果
+        List<PatentDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
+            docs.add(doc);
+        }
+        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+
+        return Result.success(docs);
+    }
+
     @GetMapping("/patent/page")
     public Result<List<PatentDoc>> pageSearchPatentByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
+        // 缓存键生成
+        String cacheKey = "patent:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
+
+        // 先尝试从缓存中获取数据
+        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
         SearchRequest searchRequest = new SearchRequest();
         searchRequest.indices("patent");
 
@@ -750,6 +846,55 @@ public class SearchController {
 
         searchRequest.source(searchSourceBuilder);
 
+        // 执行搜索
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+
+        // 处理响应结果
+        List<PatentDoc> docs = new ArrayList<>();
+        for (SearchHit hit : searchResponse.getHits().getHits()) {
+            String jsonStr = hit.getSourceAsString();
+            PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
+            docs.add(doc);
+        }
+
+        return Result.success(docs);
+    }
+
+
+    @GetMapping("/patent/page/order")
+    public Result<List<PatentDoc>> pageSearchPatentByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException{
+        // 缓存键生成
+        String cacheKey = "patent:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;;
+
+        // 先尝试从缓存中获取数据
+        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+
+        // 如果缓存中有数据，直接返回
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs);
+        }
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.indices("patent");
+
+        //2.创建 SearchSourceBuilder条件构造。
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        if(PatentDoc.getFieldType(field).equals("text")){
+            searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
+        }else if(PatentDoc.getFieldType(field).equals("keyword")){
+            searchSourceBuilder.query(QueryBuilders.termQuery(field, text));
+        }else {
+            return Result.error("该字段无法搜索");
+        }
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
+
+        //排序
+        SortOrder sortOrder = desc == 1 ? SortOrder.DESC : SortOrder.ASC;
+        searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
+
+        searchRequest.source(searchSourceBuilder);
 
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
@@ -762,6 +907,7 @@ public class SearchController {
             PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
             docs.add(doc);
         }
+
         return Result.success(docs);
     }
 

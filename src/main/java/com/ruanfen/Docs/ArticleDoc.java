@@ -21,6 +21,7 @@ public class ArticleDoc {
     private Date publishTime; // 对应 date 类型，不会被索引
     private String fieldOfResearch; // 对应 keyword 类型
     private String all; // 对应 text 类型，使用 ik_max_word 分词器
+    private int views;
 
 
     public ArticleDoc(Article article){
@@ -30,6 +31,7 @@ public class ArticleDoc {
         source = article.getSource();
         publishTime = article.getPublishTime();
         fieldOfResearch = article.getFieldOfResearch();
+        views = article.getViews();
 
         this.all = " ";
     }

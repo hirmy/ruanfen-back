@@ -120,7 +120,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Patent() throws IOException{
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://127.0.0.1:9200")
+                HttpHost.create("http://1.92.158.251:9200")
         ));
 
         List<Patent> patents = patentService.list();
@@ -130,22 +130,7 @@ public class ESAddDataTest {
         // 2.准备参数，添加多个新增的Request
         for (Patent patent : patents) {
             // 2.1.转换为文档类型
-            ArrayList<String> inventors_name = new ArrayList<>();
             PatentDoc patentDoc = new PatentDoc(patent);
-            String inventor_ids = patent.getInventorsId();
-
-            //获取inventor_name
-            String[] ids = inventor_ids.split(",");
-            String ivtName;
-            for (String id : ids) {
-                id = id.trim();
-                ivtName = researcherService.getNameById(Integer.parseInt(id));
-                if(ivtName != null){
-                    inventors_name.add(ivtName);
-                }
-            }
-
-            patentDoc.setInventorsName(inventors_name);
 
             // 2.2.创建新增文档的Request对象
             request.add(new IndexRequest("patent")

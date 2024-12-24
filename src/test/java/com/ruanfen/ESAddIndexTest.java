@@ -33,9 +33,9 @@
 //                HttpHost.create("http://1.92.158.251:9200")
 //        ));
 //        // 1.创建Request对象
-//        CreateIndexRequest request = new CreateIndexRequest("article");
+//        CreateIndexRequest request = new CreateIndexRequest("patent");
 //        // 2.准备请求的参数：DSL语句
-//        request.source(ArticleConstant.MAPPING_TEMPLATE, XContentType.JSON);
+//        request.source(PatentConstant.MAPPING_TEMPLATE, XContentType.JSON);
 //        // 3.发送请求
 //        client.indices().create(request, RequestOptions.DEFAULT);
 //        this.client.close();
