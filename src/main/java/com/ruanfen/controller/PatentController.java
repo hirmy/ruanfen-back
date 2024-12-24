@@ -1,5 +1,6 @@
 package com.ruanfen.controller;
 
+import com.ruanfen.model.Article;
 import com.ruanfen.model.Patent;
 import com.ruanfen.model.Researcher;
 import com.ruanfen.service.PatentService;
@@ -67,5 +68,19 @@ public class PatentController {
     ) {
         List<Patent> patents = patentService.searchPatents(patentName, keywords, fieldOfResearch, applicationDateFrom, applicationDateTo);
         return Result.success(patents);
+    }
+
+    @PutMapping("/addView")
+    public Result addArticleView(@RequestParam int patentId){
+        Patent patent = patentService.getById(patentId);
+        if(patent == null){
+            return Result.error("找不到文献");
+        }
+        patent.addView();
+        if(!patentService.updateById(patent)){
+            return Result.error("view更新失败");
+        }
+        return Result.success();
+
     }
 }

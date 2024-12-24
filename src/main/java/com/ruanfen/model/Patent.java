@@ -27,4 +27,8 @@ public class Patent {
     private String inventorsName;
     private String fieldOfResearch;
     private Integer views;
+
+    public void addView(){
+        this.views++;
+    }
 }

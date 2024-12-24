@@ -60,4 +60,16 @@ PortalController {
         return Result.success(portalList);
     }
 
+    @GetMapping("/find/withResearcher")
+    //根据researcherId 找portal
+    public Result<Integer> findPortalIdByResearcher(@RequestParam int researcherId){
+        // 调用服务层方法查询
+        Integer portalId = portalService.findPortalIdByResearcher(researcherId);
+
+        if (portalId != null) {
+            return Result.success(portalId); // 成功返回 Portal ID
+        } else {
+            return Result.error("未找到对应的 Portal");
+        }
+    }
 }
