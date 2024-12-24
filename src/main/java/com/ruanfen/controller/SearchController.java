@@ -312,6 +312,8 @@ public class SearchController {
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+        long totalHits = searchResponse.getHits().getTotalHits().value;
+
         // 处理响应结果
         List<ArticleDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -322,7 +324,7 @@ public class SearchController {
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
         redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
-        return Result.success(new ArticleDocResult(docs, docs.size()));
+        return Result.success(new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits))));
 
     }
 
@@ -363,6 +365,7 @@ public class SearchController {
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+        long totalHits = searchResponse.getHits().getTotalHits().value;
         // 处理响应结果
         List<ArticleDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -373,7 +376,7 @@ public class SearchController {
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
         redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
-        return Result.success(new ArticleDocResult(docs, docs.size()));
+        return Result.success(new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits))));
 
     }
 
