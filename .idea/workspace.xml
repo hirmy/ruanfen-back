@@ -5,19 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb218270-bf8e-4b39-abba-0f1e98a56d94" name="Changes" comment="merge">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/PatentDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/PatentDoc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/ArticleConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/ArticleConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/PatentConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/PatentConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/ResearcherConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/constants/ResearcherConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Patent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Patent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/academic-1.0-SNAPSHOT.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/接口文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/接口文档.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +107,7 @@
       <recent name="com.ruanfen.interceptors" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ESAddDataTest.addData2Patent">
+  <component name="RunManager">
     <configuration name="AppTest.testArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="academic" />
       <extension name="coverage">
@@ -254,7 +246,8 @@
       <workItem from="1735009597124" duration="1244000" />
       <workItem from="1735011103964" duration="6045000" />
       <workItem from="1735019769513" duration="2581000" />
-      <workItem from="1735029187164" duration="5583000" />
+      <workItem from="1735029187164" duration="6490000" />
+      <workItem from="1735037743843" duration="2751000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />

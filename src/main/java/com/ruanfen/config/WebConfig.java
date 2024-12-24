@@ -39,6 +39,7 @@ public class WebConfig implements WebMvcConfigurer {
             "/api/search/patent/page",
             "/api/search/patent/doc",
             "/api/search/patent/cond",
+            "/api/search/patent/page/order",
 
 
             "/api/search/project/allProject",

@@ -8,6 +8,7 @@ import com.ruanfen.Docs.ResearcherDoc;
 import com.ruanfen.model.Result;
 import com.ruanfen.request.SearchField;
 import com.ruanfen.request.SearchQueryRequest;
+import com.ruanfen.result.ArticleDocResult;
 import com.ruanfen.utils.ESCClientUtil;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -278,7 +279,7 @@ public class SearchController {
     }
 
     @GetMapping("/article/page")
-    public Result<List<ArticleDoc>> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
+    public Result<ArticleDocResult> pageSearchArticleByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException {
         // 缓存键生成
         String cacheKey =  "article:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
 
@@ -287,7 +288,7 @@ public class SearchController {
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
-            return Result.success(cachedDocs);
+            return Result.success(new ArticleDocResult(cachedDocs, cachedDocs.size()));
         }
 
         SearchRequest searchRequest = new SearchRequest();
@@ -321,12 +322,12 @@ public class SearchController {
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
         redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
-        return Result.success(docs);
+        return Result.success(new ArticleDocResult(docs, docs.size()));
 
     }
 
     @GetMapping("/article/page/order")
-    public Result<List<ArticleDoc>> pageSearchArticleByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException {
+    public Result<ArticleDocResult> pageSearchArticleByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException {
         // 缓存键生成
         String cacheKey =  "article:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;
 
@@ -335,7 +336,7 @@ public class SearchController {
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
-            return Result.success(cachedDocs);
+            return Result.success(new ArticleDocResult(cachedDocs, cachedDocs.size()));
         }
 
         SearchRequest searchRequest = new SearchRequest();
@@ -372,7 +373,7 @@ public class SearchController {
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
         redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
 
-        return Result.success(docs);
+        return Result.success(new ArticleDocResult(docs, docs.size()));
 
     }
 
