@@ -284,11 +284,11 @@ public class SearchController {
         String cacheKey =  "article:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
 
         // 先尝试从缓存中获取数据
-        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+        ArticleDocResult cachedDocs = (ArticleDocResult) redisTemplate.opsForValue().get(cacheKey);
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
-            return Result.success(new ArticleDocResult(cachedDocs, cachedDocs.size()));
+            return Result.success(cachedDocs);
         }
 
         SearchRequest searchRequest = new SearchRequest();
@@ -321,10 +321,11 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
+        ArticleDocResult articleDocResult = new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
-        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+        redisTemplate.opsForValue().set(cacheKey, articleDocResult, Duration.ofMinutes(30));
 
-        return Result.success(new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits))));
+        return Result.success(articleDocResult);
 
     }
 
@@ -334,11 +335,11 @@ public class SearchController {
         String cacheKey =  "article:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;
 
         // 先尝试从缓存中获取数据
-        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+        ArticleDocResult cachedDocs = (ArticleDocResult) redisTemplate.opsForValue().get(cacheKey);
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
-            return Result.success(new ArticleDocResult(cachedDocs, cachedDocs.size()));
+            return Result.success(cachedDocs);
         }
 
         SearchRequest searchRequest = new SearchRequest();
@@ -374,9 +375,10 @@ public class SearchController {
             docs.add(articleDoc);
         }
         // 将查询结果存入缓存，并设置缓存过期时间（例如1小时）
-        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+        ArticleDocResult articleDocResult = new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
+        redisTemplate.opsForValue().set(cacheKey, articleDocResult, Duration.ofMinutes(30));
 
-        return Result.success(new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits))));
+        return Result.success(articleDocResult);
 
     }
 
