@@ -10,7 +10,7 @@ import com.ruanfen.model.Result;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patent")
+@RequestMapping("/api/patent")
 public class PatentController {
     @Autowired
     private PatentService patentService;

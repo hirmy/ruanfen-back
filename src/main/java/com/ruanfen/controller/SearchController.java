@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 public class SearchController {
 
     private RestHighLevelClient client = ESCClientUtil.client();

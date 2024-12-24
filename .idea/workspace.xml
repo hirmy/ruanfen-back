@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="eb218270-bf8e-4b39-abba-0f1e98a56d94" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/CorsConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/SearchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/AwardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/AwardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/MessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/PatentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/PatentController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Project.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ruanfen/model/Project.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -239,7 +242,7 @@
       <workItem from="1734830613298" duration="5460000" />
       <workItem from="1734971568602" duration="3909000" />
       <workItem from="1735009597124" duration="1244000" />
-      <workItem from="1735011103964" duration="870000" />
+      <workItem from="1735011103964" duration="1999000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />

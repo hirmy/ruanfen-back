@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/portal")
+@RequestMapping("/api/portal")
 public class
 PortalController {
     @Autowired

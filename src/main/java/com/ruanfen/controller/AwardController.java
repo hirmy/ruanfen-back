@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/awards")
+@RequestMapping("/api/awards")
 public class AwardController {
     @Autowired
     private AwardService awardService;
