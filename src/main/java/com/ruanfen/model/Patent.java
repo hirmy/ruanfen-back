@@ -12,8 +12,7 @@ public class Patent {
     private Integer patentId;
 
     private String patentName;
-    @EnumValue
-    private PatentType patentType; // 枚举类型字段，用 String 表示
+    private String patentType; // 枚举类型字段，用 String 表示
     private String applicationNum;  //申请号
     private String publicationNum;  //公布号
     private String authorizationNum;    //授权号

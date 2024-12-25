@@ -9,6 +9,7 @@ import com.ruanfen.model.Result;
 import com.ruanfen.request.SearchField;
 import com.ruanfen.request.SearchQueryRequest;
 import com.ruanfen.result.ArticleDocResult;
+import com.ruanfen.result.PatentDocResult;
 import com.ruanfen.utils.ESCClientUtil;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -195,10 +196,10 @@ public class SearchController {
 //    }
 
     @PostMapping("/article/cond")
-    public Result<List<ArticleDoc>> searchArticleByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+    public Result<ArticleDocResult> searchArticleByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
         String cacheKey = "article:" + searchQueryRequest.generateCacheKey();
 
-        List<ArticleDoc> cachedDocs = (List<ArticleDoc>)redisTemplate.opsForValue().get(cacheKey);
+        ArticleDocResult cachedDocs = (ArticleDocResult)redisTemplate.opsForValue().get(cacheKey);
         if (cachedDocs != null) {
             return Result.success(cachedDocs);  // 如果缓存命中，直接返回
         }
@@ -271,6 +272,7 @@ public class SearchController {
         // 7. 执行搜索请求
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+        long totalHits = searchResponse.getHits().getTotalHits().value;
         // 8. 处理响应结果
         List<ArticleDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -278,9 +280,10 @@ public class SearchController {
             ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
             docs.add(articleDoc);
         }
-        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+        ArticleDocResult articleDocResult = new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
+        redisTemplate.opsForValue().set(cacheKey, articleDocResult, Duration.ofMinutes(30));
 
-        return Result.success(docs);
+        return Result.success(articleDocResult);
     }
 
     @GetMapping("/article/page")
@@ -290,7 +293,6 @@ public class SearchController {
 
         // 先尝试从缓存中获取数据
         ArticleDocResult cachedDocs = (ArticleDocResult) redisTemplate.opsForValue().get(cacheKey);
-
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
             return Result.success(cachedDocs);
@@ -749,10 +751,10 @@ public class SearchController {
 
 
     @PostMapping("/patent/cond")
-    public Result<List<PatentDoc>> searchPatentByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+    public Result<PatentDocResult> searchPatentByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
         String cacheKey = "patent:" + searchQueryRequest.generateCacheKey();
 
-        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+        PatentDocResult cachedDocs = (PatentDocResult)redisTemplate.opsForValue().get(cacheKey);
         if (cachedDocs != null) {
             return Result.success(cachedDocs);  // 如果缓存命中，直接返回
         }
@@ -825,6 +827,8 @@ public class SearchController {
         // 7. 执行搜索请求
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+        long totalHits = searchResponse.getHits().getTotalHits().value;
+
         // 8. 处理响应结果
         List<PatentDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -832,18 +836,20 @@ public class SearchController {
             PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
             docs.add(doc);
         }
-        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
+        PatentDocResult patentDocResult = new PatentDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
 
-        return Result.success(docs);
+        redisTemplate.opsForValue().set(cacheKey, patentDocResult, Duration.ofMinutes(30));
+
+        return Result.success(patentDocResult);
     }
 
     @GetMapping("/patent/page")
-    public Result<List<PatentDoc>> pageSearchPatentByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
+    public Result<PatentDocResult> pageSearchPatentByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
         // 缓存键生成
         String cacheKey = "patent:search:" + field + ":" + text + ":page:" + page + ":size:" + pageSize;
 
         // 先尝试从缓存中获取数据
-        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+        PatentDocResult cachedDocs = (PatentDocResult) redisTemplate.opsForValue().get(cacheKey);
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
@@ -870,6 +876,7 @@ public class SearchController {
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
+        long totalHits = searchResponse.getHits().getTotalHits().value;
 
         // 处理响应结果
         List<PatentDoc> docs = new ArrayList<>();
@@ -878,18 +885,20 @@ public class SearchController {
             PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
             docs.add(doc);
         }
+        PatentDocResult patentDocResult = new PatentDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
+        redisTemplate.opsForValue().set(cacheKey, patentDocResult, Duration.ofMinutes(30));
 
-        return Result.success(docs);
+        return Result.success(patentDocResult);
     }
 
 
     @GetMapping("/patent/page/order")
-    public Result<List<PatentDoc>> pageSearchPatentByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException{
+    public Result<PatentDocResult> pageSearchPatentByFieldOrder(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize, @RequestParam String orderField, @RequestParam int desc) throws IOException{
         // 缓存键生成
         String cacheKey = "patent:search:order:" + field + ":" + text + ":page:" + page + ":size:" + pageSize + ":orderField:" + orderField + ":desc:" + desc;;
 
         // 先尝试从缓存中获取数据
-        List<PatentDoc> cachedDocs = (List<PatentDoc>)redisTemplate.opsForValue().get(cacheKey);
+        PatentDocResult cachedDocs = (PatentDocResult) redisTemplate.opsForValue().get(cacheKey);
 
         // 如果缓存中有数据，直接返回
         if (cachedDocs != null) {
@@ -920,7 +929,7 @@ public class SearchController {
         // 执行搜索
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
-
+        long totalHits = searchResponse.getHits().getTotalHits().value;
         // 处理响应结果
         List<PatentDoc> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
@@ -928,8 +937,10 @@ public class SearchController {
             PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
             docs.add(doc);
         }
+        PatentDocResult patentDocResult = new PatentDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
+        redisTemplate.opsForValue().set(cacheKey, patentDocResult, Duration.ofMinutes(30));
 
-        return Result.success(docs);
+        return Result.success(patentDocResult);
     }
 
     @GetMapping("/patent/doc")

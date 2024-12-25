@@ -56,10 +56,14 @@ public class WebConfig implements WebMvcConfigurer {
 
             "/api/comment/findById",
             "/api/comment/find",
+            "/api/comment/add",
+            "/api/comment/remove",
 
             "/api/portal/find",
             "/api/portal/allPortals",
             "/api/portal/find/withResearcher",
+            "/api/portal/add",
+            "/api/portal/remove",
 
             "/api/article/find",
             "/api/article/allArticles",
@@ -73,6 +77,8 @@ public class WebConfig implements WebMvcConfigurer {
             "/api/patent/find",
             "/api/patent/search",
             "/api/patent/addView",
+            "/api/patent/remove",
+            "/api/patent/update",
 
             "/api/researcher/find",
             "/api/researcher/search",
