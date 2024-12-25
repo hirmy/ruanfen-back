@@ -13,8 +13,10 @@ public class SearchQueryRequest {
     private List<SearchField> AndFieldsAndTexts;  // 查询字段和文本对
     private String orderField;
     private int desc;
+    private int page;
+    private int pageSize;
 
-    public SearchQueryRequest(List<SearchField> orFieldsAndTexts,List<SearchField> andFieldsAndTexts, String orderField, int desc){
+    public SearchQueryRequest(List<SearchField> orFieldsAndTexts,List<SearchField> andFieldsAndTexts, String orderField, int desc, int page, int pageSize){
         this.orderField = orderField;
         this.AndFieldsAndTexts = andFieldsAndTexts;
         if(orderField == null){
@@ -24,6 +26,8 @@ public class SearchQueryRequest {
             this.orderField = orderField;
             this.desc = desc;
         }
+        this.page = page;
+        this.pageSize = pageSize;
     }
 
     // 生成 Redis 缓存键的方法

@@ -253,6 +253,11 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+        //指明大小
+        int page = searchQueryRequest.getPage();
+        int pageSize = searchQueryRequest.getPageSize();
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
 
         //排序
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
@@ -539,6 +544,11 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+        //指明大小
+        int page = searchQueryRequest.getPage();
+        int pageSize = searchQueryRequest.getPageSize();
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
 
 
         //排序
@@ -797,6 +807,11 @@ public class SearchController {
 
         // 6. 设置查询条件
         searchSourceBuilder.query(boolQuery);
+        //指明大小
+        int page = searchQueryRequest.getPage();
+        int pageSize = searchQueryRequest.getPageSize();
+        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
+        searchSourceBuilder.size(pageSize); // 每页显示数量
 
         //排序
         if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {

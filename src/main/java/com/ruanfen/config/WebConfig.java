@@ -66,6 +66,9 @@ public class WebConfig implements WebMvcConfigurer {
             "/api/article/search",
             "/api/article/find/urls",
             "/api/article/addView",
+            "/api/article/add",
+            "/api/article/remove",
+            "/api/article/update",
 
             "/api/patent/find",
             "/api/patent/search",
