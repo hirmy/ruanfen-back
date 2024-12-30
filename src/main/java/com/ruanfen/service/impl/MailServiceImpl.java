@@ -10,15 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 import java.util.Random;
 
-/**
- * *****************************************************************************
- *
- * @ClassName: MailService
- * @Description: 请添加对此类的描述
- * @author: chenx
- * @time: 2021/4/7 17:10
- * ****************************************************************************
- */
+
 @Service
 public class MailServiceImpl {
     @Autowired

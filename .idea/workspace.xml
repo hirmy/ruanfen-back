@@ -6,11 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="eb218270-bf8e-4b39-abba-0f1e98a56d94" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Patent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/model/Patent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -198,10 +198,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ESAddDataTest.addData2Article" />
-        <item itemvalue="JUnit.ESAddDataTest.addData2Patent" />
         <item itemvalue="JUnit.ESAddDataTest.addData2Researcher" />
-        <item itemvalue="JUnit.ESAddIndexTest.createIndex" />
         <item itemvalue="JUnit.AppTest.testArticle" />
+        <item itemvalue="JUnit.ESAddDataTest.addData2Patent" />
+        <item itemvalue="JUnit.ESAddIndexTest.createIndex" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +251,11 @@
       <workItem from="1735045887236" duration="11157000" />
       <workItem from="1735058821499" duration="7026000" />
       <workItem from="1735095527915" duration="2581000" />
-      <workItem from="1735100924923" duration="9704000" />
+      <workItem from="1735100924923" duration="14147000" />
+      <workItem from="1735124251724" duration="2494000" />
+      <workItem from="1735137604179" duration="121000" />
+      <workItem from="1735203772646" duration="10000" />
+      <workItem from="1735555163873" duration="4292000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />

@@ -43,6 +43,7 @@ public class SearchQueryRequest {
         if(this.getOrderField()!= null){
             cacheKey.append(this.getOrderField()).append(":").append(String.valueOf(this.desc));
         }
+        cacheKey.append(":page:").append(this.page).append(":pageSize:").append(this.pageSize);
 
         return cacheKey.toString();
     }

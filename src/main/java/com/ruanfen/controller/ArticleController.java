@@ -24,6 +24,7 @@ public class ArticleController {
 
     @PostMapping("/add")
     public Result addArticle(@RequestBody Article article) throws IOException {
+
         articleService.addArticle(article);
 
         searchService.addArticleDoc(article);
