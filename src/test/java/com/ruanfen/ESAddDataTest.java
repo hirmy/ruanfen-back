@@ -67,7 +67,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Article() throws IOException{
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://1.92.158.251:9200")
+                HttpHost.create("http://127.0.0.1:9200")
         ));
 
         List<Article> articles = articleService.list();
@@ -103,7 +103,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Researcher() throws IOException {
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://1.92.158.251:9200")
+                HttpHost.create("http://127.0.0.1:9200")
         ));
 
         List<Researcher> researchers = researcherService.list();
@@ -140,7 +140,7 @@ public class ESAddDataTest {
     @Test
     public void addData2Patent() throws IOException{
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://1.92.158.251:9200")
+                HttpHost.create("http://127.0.0.1:9200")
         ));
 
         List<Patent> patents = patentService.list();

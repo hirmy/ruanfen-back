@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Data
-public class PatentDoc {
+public class PatentDoc extends Doc {
     private Long patentId;            // 专利ID
     private String patentName;        // 专利名称
     private Date applicationDate;   // 申请日期
@@ -43,8 +43,6 @@ public class PatentDoc {
         return fieldTypeMap.getOrDefault(field, null);
 
     }
-
-
 
     public PatentDoc(){}
 }

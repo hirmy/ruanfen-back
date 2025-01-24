@@ -1,15 +1,13 @@
 package com.ruanfen.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.ruanfen.Docs.ArticleDoc;
-import com.ruanfen.Docs.PatentDoc;
-import com.ruanfen.Docs.ProjectDoc;
-import com.ruanfen.Docs.ResearcherDoc;
+import com.ruanfen.Docs.*;
 import com.ruanfen.model.Result;
 import com.ruanfen.request.SearchField;
 import com.ruanfen.request.SearchQueryRequest;
 import com.ruanfen.result.ArticleDocResult;
 import com.ruanfen.result.PatentDocResult;
+import com.ruanfen.result.ResearcherDocResult;
 import com.ruanfen.utils.ESCClientUtil;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -37,6 +35,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 @RestController
 @RequestMapping("/api/search")
@@ -126,164 +125,9 @@ public class SearchController {
     }
 
 
-//    @PostMapping("/article/multi")
-//    public Result<List<ArticleDoc>> searchArticleByMultiFields(
-//            @RequestBody SearchQueryRequest queryRequest) throws IOException {
-//
-//        // 1. 创建 SearchRequest，指定索引
-//        SearchRequest searchRequest = new SearchRequest();
-//        searchRequest.indices("article");
-//
-//        // 2. 创建 SearchSourceBuilder，用于构建查询条件
-//        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-//
-//        // 3. 创建 bool 查询，支持多个子查询条件
-//        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-//
-//        // 4. 根据用户传入的多个字段进行查询
-//        String relation = queryRequest.getRelation();
-//        for (SearchField searchField : queryRequest.getFieldsAndTexts()) {
-//            String fieldName = searchField.getField();
-//            String fieldText = searchField.getText();
-//            // 根据字段类型决定查询方式
-//            String fieldType = ArticleDoc.getFieldType(fieldName);
-//            switch (relation){
-//                case "and":
-//                    if ("text".equals(fieldType)) {
-//                        boolQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else if ("keyword".equals(fieldType)) {
-//                        boolQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else {
-//                        return Result.error("该字段无法搜索");
-//                    }
-//                    break;
-//                case "or":
-//                    if ("text".equals(fieldType)) {
-//                        boolQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else if ("keyword".equals(fieldType)) {
-//                        boolQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else {
-//                        return Result.error("该字段无法搜索");
-//                    }
-//                    break;
-//                case "not":
-//                    if ("text".equals(fieldType)) {
-//                        boolQuery.mustNot(QueryBuilders.matchQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else if ("keyword".equals(fieldType)) {
-//                        boolQuery.mustNot(QueryBuilders.termQuery(fieldName, fieldText));  // 默认为 should (OR)
-//                    } else {
-//                        return Result.error("该字段无法搜索");
-//                    }
-//                    break;
-//                default:
-//                    return Result.error("传入relation不合法.");
-//            }
-//        }
-//
-//        searchSourceBuilder.query(boolQuery);
-//        searchRequest.source(searchSourceBuilder);
-//
-//        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-//
-//        List<ArticleDoc> docs = new ArrayList<>();
-//        for (SearchHit hit : searchResponse.getHits().getHits()) {
-//            String jsonStr = hit.getSourceAsString();
-//            ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
-//            docs.add(articleDoc);
-//        }
-//
-//        return Result.success(docs);
-//    }
-
     @PostMapping("/article/cond")
     public Result<ArticleDocResult> searchArticleByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
-        String cacheKey = "article:" + searchQueryRequest.generateCacheKey();
-
-        ArticleDocResult cachedDocs = (ArticleDocResult)redisTemplate.opsForValue().get(cacheKey);
-        if (cachedDocs != null) {
-            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
-        }
-
-        // 1. 创建 SearchRequest，指定索引
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("article");
-
-        // 2. 创建 SearchSourceBuilder，用于构建查询条件
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-
-        // 3. 创建 bool 查询，支持多个子查询条件
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-
-        // 4. 处理 OR 条件部分：a || b
-        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = ArticleDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
-            } else if ("keyword".equals(fieldType)) {
-                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-
-        // 将 OR 查询部分加入主查询
-        boolQuery.must(orQuery);
-
-        // 5. 处理 AND 条件部分：c && d && e
-        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = ArticleDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
-            } else if ("keyword".equals(fieldType)) {
-                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-        boolQuery.must(andQuery);
-
-        // 6. 设置查询条件
-        searchSourceBuilder.query(boolQuery);
-        //指明大小
-        int page = searchQueryRequest.getPage();
-        int pageSize = searchQueryRequest.getPageSize();
-        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
-        searchSourceBuilder.size(pageSize); // 每页显示数量
-
-        //排序
-        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
-            String orderField = searchQueryRequest.getOrderField();
-            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
-            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
-        }
-
-        searchRequest.source(searchSourceBuilder);
-
-        // 7. 执行搜索请求
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
-        long totalHits = searchResponse.getHits().getTotalHits().value;
-        // 8. 处理响应结果
-        List<ArticleDoc> docs = new ArrayList<>();
-        for (SearchHit hit : searchResponse.getHits().getHits()) {
-            String jsonStr = hit.getSourceAsString();
-            ArticleDoc articleDoc = JSON.parseObject(jsonStr, ArticleDoc.class);
-            docs.add(articleDoc);
-        }
-        ArticleDocResult articleDocResult = new ArticleDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
-        redisTemplate.opsForValue().set(cacheKey, articleDocResult, Duration.ofMinutes(30));
-
-        return Result.success(articleDocResult);
+        return condSearch("article", searchQueryRequest, "article", ArticleDoc.class);
     }
 
     @GetMapping("/article/page")
@@ -488,93 +332,8 @@ public class SearchController {
 
 
     @PostMapping("/researcher/cond")
-    public Result<List<ResearcherDoc>> searchResearcherByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
-        String cacheKey = "researcher:" + searchQueryRequest.generateCacheKey();
-
-        List<ResearcherDoc> cachedDocs = (List<ResearcherDoc>)redisTemplate.opsForValue().get(cacheKey);
-        if (cachedDocs != null) {
-            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
-        }
-
-        // 1. 创建 SearchRequest，指定索引
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("researcher");
-
-        // 2. 创建 SearchSourceBuilder，用于构建查询条件
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-
-        // 3. 创建 bool 查询，支持多个子查询条件
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-
-        // 4. 处理 OR 条件部分：a || b
-        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = ResearcherDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
-            } else if ("keyword".equals(fieldType)) {
-                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-
-        // 将 OR 查询部分加入主查询
-        boolQuery.must(orQuery);
-
-        // 5. 处理 AND 条件部分：c && d && e
-        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = ResearcherDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
-            } else if ("keyword".equals(fieldType)) {
-                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-        boolQuery.must(andQuery);
-
-        // 6. 设置查询条件
-        searchSourceBuilder.query(boolQuery);
-        //指明大小
-        int page = searchQueryRequest.getPage();
-        int pageSize = searchQueryRequest.getPageSize();
-        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
-        searchSourceBuilder.size(pageSize); // 每页显示数量
-
-
-        //排序
-        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
-            String orderField = searchQueryRequest.getOrderField();
-            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
-            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
-        }
-
-        searchRequest.source(searchSourceBuilder);
-
-        // 7. 执行搜索请求
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
-        // 8. 处理响应结果
-        List<ResearcherDoc> docs = new ArrayList<>();
-        for (SearchHit hit : searchResponse.getHits().getHits()) {
-            String jsonStr = hit.getSourceAsString();
-            ResearcherDoc doc = JSON.parseObject(jsonStr, ResearcherDoc.class);
-            docs.add(doc);
-        }
-        redisTemplate.opsForValue().set(cacheKey, docs, Duration.ofMinutes(30));
-
-        return Result.success(docs);
+    public Result<ResearcherDocResult> searchResearcherByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
+        return condSearch("researcher", searchQueryRequest, "researcher", ResearcherDoc.class);
     }
 
     @GetMapping("/researcher/page")
@@ -752,95 +511,7 @@ public class SearchController {
 
     @PostMapping("/patent/cond")
     public Result<PatentDocResult> searchPatentByCondFields(@RequestBody SearchQueryRequest searchQueryRequest) throws IOException{
-        String cacheKey = "patent:" + searchQueryRequest.generateCacheKey();
-
-        PatentDocResult cachedDocs = (PatentDocResult)redisTemplate.opsForValue().get(cacheKey);
-        if (cachedDocs != null) {
-            return Result.success(cachedDocs);  // 如果缓存命中，直接返回
-        }
-
-        // 1. 创建 SearchRequest，指定索引
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("patent");
-
-        // 2. 创建 SearchSourceBuilder，用于构建查询条件
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-
-        // 3. 创建 bool 查询，支持多个子查询条件
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
-
-        // 4. 处理 OR 条件部分：a || b
-        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = PatentDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                orQuery.should(QueryBuilders.matchQuery(fieldName, fieldText));  // OR 查询
-            } else if ("keyword".equals(fieldType)) {
-                orQuery.should(QueryBuilders.termQuery(fieldName, fieldText));  // OR 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-
-        // 将 OR 查询部分加入主查询
-        boolQuery.must(orQuery);
-
-        // 5. 处理 AND 条件部分：c && d && e
-        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
-        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
-            String fieldName = searchField.getField();
-            String fieldText = searchField.getText();
-
-            String fieldType = PatentDoc.getFieldType(fieldName); // 获取字段类型
-
-            if ("text".equals(fieldType)) {
-                andQuery.must(QueryBuilders.matchQuery(fieldName, fieldText));  // AND 查询
-            } else if ("keyword".equals(fieldType)) {
-                andQuery.must(QueryBuilders.termQuery(fieldName, fieldText));  // AND 查询
-            } else {
-                return Result.error("该字段无法搜索");
-            }
-        }
-        boolQuery.must(andQuery);
-
-        // 6. 设置查询条件
-        searchSourceBuilder.query(boolQuery);
-        //指明大小
-        int page = searchQueryRequest.getPage();
-        int pageSize = searchQueryRequest.getPageSize();
-        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
-        searchSourceBuilder.size(pageSize); // 每页显示数量
-
-        //排序
-        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
-            String orderField = searchQueryRequest.getOrderField();
-            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
-            searchSourceBuilder.sort(orderField, sortOrder); // 设置排序
-        }
-
-        searchRequest.source(searchSourceBuilder);
-
-        // 7. 执行搜索请求
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
-        long totalHits = searchResponse.getHits().getTotalHits().value;
-
-        // 8. 处理响应结果
-        List<PatentDoc> docs = new ArrayList<>();
-        for (SearchHit hit : searchResponse.getHits().getHits()) {
-            String jsonStr = hit.getSourceAsString();
-            PatentDoc doc = JSON.parseObject(jsonStr, PatentDoc.class);
-            docs.add(doc);
-        }
-        PatentDocResult patentDocResult = new PatentDocResult(docs, Integer.parseInt(String.valueOf(totalHits)));
-
-        redisTemplate.opsForValue().set(cacheKey, patentDocResult, Duration.ofMinutes(30));
-
-        return Result.success(patentDocResult);
+       return condSearch("patent", searchQueryRequest, "patent", PatentDoc.class);
     }
 
     @GetMapping("/patent/page")
@@ -959,109 +630,137 @@ public class SearchController {
         }
     }
 
-    @GetMapping("/project/allProject")
-    public Result<List<ProjectDoc>> searchProjectAll() throws IOException{
-        SearchRequest searchRequest = new SearchRequest("project");
+    private <T,E> Result<T> condSearch(String cacheKeyPrefix, SearchQueryRequest searchQueryRequest,
+                                        String indexName, Class<E> docClass) throws IOException {
+        // 1. 构建缓存 Key
+        String cacheKey = cacheKeyPrefix + ":" + searchQueryRequest.generateCacheKey();
 
-        //2.创建 SearchSourceBuilder条件构造。
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(QueryBuilders.matchAllQuery());
-
-        //SearchRequest搜索请求,并指定要查询的索引
-        searchRequest.source(searchSourceBuilder);
-
-        SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-        SearchHits hits = response.getHits();
-
-        List<ProjectDoc> docs = new ArrayList<>();
-        for(SearchHit hit : hits){
-            String jsonStr = hit.getSourceAsString();
-            ProjectDoc doc = JSON.parseObject(jsonStr, ProjectDoc.class);
-            docs.add(doc);
+        // 2. 尝试从缓存获取数据
+        T cachedDocs = (T) redisTemplate.opsForValue().get(cacheKey);
+        if (cachedDocs != null) {
+            return Result.success(cachedDocs); // 缓存命中
         }
 
-        return Result.success(docs);
-    }
-
-    @GetMapping("/project")
-    public Result<List<ProjectDoc>> searchProjectByField(@RequestParam String field, @RequestParam String text) throws IOException{
+        // 3. 创建 SearchRequest，指定索引
         SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("project");
+        searchRequest.indices(indexName);
 
-        //2.创建 SearchSourceBuilder条件构造。
+        // 4. 构建查询条件
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        if(ProjectDoc.getFieldType(field).equals("text")){
-            searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
-        }else if(ProjectDoc.getFieldType(field).equals("keyword")){
-            searchSourceBuilder.query(QueryBuilders.termQuery(field, text));
-        }else {
-            return Result.error("该字段无法搜索");
+        BoolQueryBuilder boolQuery = buildQuery(searchQueryRequest, indexName);
+
+        searchSourceBuilder.query(boolQuery);
+        // 设置分页
+        int page = searchQueryRequest.getPage();
+        int pageSize = searchQueryRequest.getPageSize();
+        searchSourceBuilder.from((page - 1) * pageSize);
+        searchSourceBuilder.size(pageSize);
+
+        // 设置排序
+        if (searchQueryRequest.getOrderField() != null && !searchQueryRequest.getOrderField().isEmpty()) {
+            String orderField = searchQueryRequest.getOrderField();
+            SortOrder sortOrder = searchQueryRequest.getDesc() == 1 ? SortOrder.DESC : SortOrder.ASC;
+            searchSourceBuilder.sort(orderField, sortOrder);
         }
 
         searchRequest.source(searchSourceBuilder);
 
-        // 执行搜索
+        // 5. 执行搜索请求
         SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 
-        // 处理响应结果
-        List<ProjectDoc> docs = new ArrayList<>();
+        // 6. 解析响应数据
+        List<E> docs = new ArrayList<>();
         for (SearchHit hit : searchResponse.getHits().getHits()) {
             String jsonStr = hit.getSourceAsString();
-            ProjectDoc doc = JSON.parseObject(jsonStr, ProjectDoc.class);
+            E doc = JSON.parseObject(jsonStr, docClass);
             docs.add(doc);
         }
-        return Result.success(docs);
-    }
 
-    @GetMapping("/project/page")
-    public Result<List<ProjectDoc>> pageSearchProjectByField(@RequestParam String field, @RequestParam String text, @RequestParam int page, @RequestParam int pageSize) throws IOException{
-        SearchRequest searchRequest = new SearchRequest();
-        searchRequest.indices("project");
-
-        //2.创建 SearchSourceBuilder条件构造。
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        if(ProjectDoc.getFieldType(field).equals("text")){
-            searchSourceBuilder.query(QueryBuilders.matchQuery(field, text));
-        }else if(ProjectDoc.getFieldType(field).equals("keyword")){
-            searchSourceBuilder.query(QueryBuilders.termQuery(field, text));
+        // 构建返回结果
+        if (docClass == ArticleDoc.class) {
+            long totalHits = searchResponse.getHits().getTotalHits().value;
+            ArticleDocResult result = new ArticleDocResult((List<ArticleDoc>) docs, (int) totalHits);
+            redisTemplate.opsForValue().set(cacheKey, result, Duration.ofMinutes(30));
+            return (Result<T>) Result.success(result);
+        }else if(docClass == PatentDoc.class) {
+            long totalHits = searchResponse.getHits().getTotalHits().value;
+            PatentDocResult result = new PatentDocResult((List<PatentDoc>) docs, (int) totalHits);
+            redisTemplate.opsForValue().set(cacheKey, result, Duration.ofMinutes(30));
+            return (Result<T>) Result.success(result);
+        }else if(docClass == ResearcherDoc.class){
+            long totalHits = searchResponse.getHits().getTotalHits().value;
+            ResearcherDocResult result = new ResearcherDocResult((List<ResearcherDoc>) docs, (int) totalHits);
+            redisTemplate.opsForValue().set(cacheKey, result, Duration.ofMinutes(30));
+            return (Result<T>) Result.success(result);
         }else {
-            return Result.error("该字段无法搜索");
-        }
-        searchSourceBuilder.from((page-1) * pageSize); // 起始位置
-        searchSourceBuilder.size(pageSize); // 每页显示数量
-
-        searchRequest.source(searchSourceBuilder);
-
-
-        // 执行搜索
-        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-
-
-        // 处理响应结果
-        List<ProjectDoc> docs = new ArrayList<>();
-        for (SearchHit hit : searchResponse.getHits().getHits()) {
-            String jsonStr = hit.getSourceAsString();
-            ProjectDoc doc = JSON.parseObject(jsonStr, ProjectDoc.class);
-            docs.add(doc);
-        }
-        return Result.success(docs);
-    }
-
-    @GetMapping("/project/doc")
-    public Result<ProjectDoc> searchProjectById(@RequestParam int projectId) throws IOException{
-        // 1.准备Request
-        GetRequest request = new GetRequest("project", String.valueOf(projectId));
-        // 2.发送请求，得到响应
-        GetResponse response = client.get(request, RequestOptions.DEFAULT);
-        if(response.isExists()){
-            // 3.解析响应结果
-            String json = response.getSourceAsString();
-            ProjectDoc doc = JSON.parseObject(json, ProjectDoc.class);
-            return Result.success(doc);
-        }else {
-            return Result.error();
+            return null;
         }
     }
+
+    private BoolQueryBuilder buildQuery(SearchQueryRequest searchQueryRequest, String indexName) {
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        Doc document;
+        switch (indexName){
+            case "article":
+                document = new ArticleDoc();
+                break;
+            case "researcher":
+                document = new ResearcherDoc();
+                break;
+            case "patent":
+                document = new PatentDoc();
+                break;
+            default:
+                document = null;
+                break;
+        }
+        // OR 查询部分
+        BoolQueryBuilder orQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getOrFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+
+            String fieldType = getFieldTypeForDoc(document, fieldName);
+            if ("text".equals(fieldType)) {
+                orQuery.should(QueryBuilders.matchQuery(searchField.getField(), searchField.getText()));
+            } else if ("keyword".equals(fieldType)) {
+                orQuery.should(QueryBuilders.termQuery(searchField.getField(), searchField.getText()));
+            } else {
+                throw new IllegalArgumentException("该字段无法搜索");
+            }
+        }
+        boolQuery.must(orQuery);
+
+        // AND 查询部分
+        BoolQueryBuilder andQuery = QueryBuilders.boolQuery();
+        for (SearchField searchField : searchQueryRequest.getAndFieldsAndTexts()) {
+            String fieldName = searchField.getField();
+            String fieldType = getFieldTypeForDoc(document, fieldName);
+
+            if ("text".equals(fieldType)) {
+                andQuery.must(QueryBuilders.matchQuery(searchField.getField(), searchField.getText()));
+            } else if ("keyword".equals(fieldType)) {
+                andQuery.must(QueryBuilders.termQuery(searchField.getField(), searchField.getText()));
+            } else {
+                throw new IllegalArgumentException("该字段无法搜索");
+            }
+        }
+        boolQuery.must(andQuery);
+
+        return boolQuery;
+    }
+
+    private String getFieldTypeForDoc(Doc document, String fieldName) {
+        if (document instanceof ArticleDoc) {
+            return ArticleDoc.getFieldType(fieldName);
+        } else if (document instanceof ResearcherDoc) {
+            return ResearcherDoc.getFieldType(fieldName);
+        } else if (document instanceof PatentDoc) {
+            return PatentDoc.getFieldType(fieldName);
+        }
+        return null;
+    }
+
+
 
 
 }

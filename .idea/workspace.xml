@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="eb218270-bf8e-4b39-abba-0f1e98a56d94" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/request/SearchQueryRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/service/impl/MailServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ArticleDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/PatentDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/PatentDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ResearcherDoc.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/Docs/ResearcherDoc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ruanfen/utils/ESCClientUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ruanfen/utils/ESCClientUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddDataTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ruanfen/ESAddIndexTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +110,7 @@
       <recent name="com.ruanfen.interceptors" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ESAddDataTest.addData2Article">
+  <component name="RunManager">
     <configuration name="AppTest.testArticle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="academic" />
       <extension name="coverage">
@@ -197,11 +200,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ESAddDataTest.addData2Article" />
-        <item itemvalue="JUnit.ESAddDataTest.addData2Researcher" />
-        <item itemvalue="JUnit.AppTest.testArticle" />
         <item itemvalue="JUnit.ESAddDataTest.addData2Patent" />
+        <item itemvalue="JUnit.ESAddDataTest.addData2Researcher" />
+        <item itemvalue="JUnit.ESAddDataTest.addData2Article" />
         <item itemvalue="JUnit.ESAddIndexTest.createIndex" />
+        <item itemvalue="JUnit.AppTest.testArticle" />
       </list>
     </recent_temporary>
   </component>
@@ -256,6 +259,8 @@
       <workItem from="1735137604179" duration="121000" />
       <workItem from="1735203772646" duration="10000" />
       <workItem from="1735555163873" duration="4292000" />
+      <workItem from="1735570228983" duration="996000" />
+      <workItem from="1737700698357" duration="5815000" />
     </task>
     <task id="LOCAL-00001" summary="merge">
       <option name="closed" value="true" />
@@ -274,17 +279,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge" />
     <option name="LAST_COMMIT_MESSAGE" value="merge" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/ruanfen/controller/SearchController.java</url>
-          <line>128</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

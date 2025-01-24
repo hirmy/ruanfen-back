@@ -1,6 +1,7 @@
 package com.ruanfen;
 
 import com.alibaba.fastjson.JSON;
+import com.ruanfen.Docs.PatentDoc;
 import com.ruanfen.Docs.UserDoc;
 import com.ruanfen.constants.*;
 import com.ruanfen.model.User;
@@ -30,12 +31,12 @@ public class ESAddIndexTest {
     @Test
     public void createIndex() throws IOException {
         this.client = new RestHighLevelClient(RestClient.builder(
-                HttpHost.create("http://1.92.158.251:9200")
+                HttpHost.create("http://127.0.0.1:9200")
         ));
         // 1.创建Request对象
-        CreateIndexRequest request = new CreateIndexRequest("article");
+        CreateIndexRequest request = new CreateIndexRequest("patent");
         // 2.准备请求的参数：DSL语句
-        request.source(ArticleConstant.MAPPING_TEMPLATE, XContentType.JSON);
+        request.source(PatentConstant.MAPPING_TEMPLATE, XContentType.JSON);
         // 3.发送请求
         client.indices().create(request, RequestOptions.DEFAULT);
         this.client.close();

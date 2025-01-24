@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class ArticleDoc {
+public class ArticleDoc extends Doc{
 
     private Long articleId; // 对应 long 类型
     private String articleName; // 对应 text 类型，使用 ik_smart 分词器
