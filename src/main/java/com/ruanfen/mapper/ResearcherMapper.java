@@ -16,3 +16,4 @@ public interface ResearcherMapper extends BaseMapper<Researcher> {
                                        @Param("institution") String institution,
                                        @Param("claimed") Boolean claimed);
 }
+

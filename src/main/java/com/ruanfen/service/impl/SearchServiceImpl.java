@@ -35,9 +35,6 @@ public class SearchServiceImpl implements SearchService {
         IndexRequest request = new IndexRequest("article");
 
         ArticleDoc articleDoc = new ArticleDoc(article);
-        String researcherUrl = article.getResearcherUrl();
-        String researcherName = researcherService.getNameByUrl(researcherUrl);
-        articleDoc.setResearcherName(researcherName);
 
         // 2.2.创建新增文档的Request对象
         request.id(String.valueOf(articleDoc.getArticleId()))
@@ -71,9 +68,6 @@ public class SearchServiceImpl implements SearchService {
 
         // 创建更新内容
         ArticleDoc articleDoc = new ArticleDoc(article);
-        String researcherUrl = article.getResearcherUrl();
-        String researcherName = researcherService.getNameByUrl(researcherUrl);
-        articleDoc.setResearcherName(researcherName);
 
         // 设置更新内容
         request.doc(JSON.toJSONString(articleDoc), XContentType.JSON);

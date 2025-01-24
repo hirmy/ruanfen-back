@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ruanfen.mapper.ArticleMapper">
+
+    <select id="searchArticles" resultType="com.ruanfen.model.Article">
+        SELECT * FROM article
+        WHERE 1 = 1
+        <if test="articleName != null">
+            AND article_name LIKE CONCAT('%', #{articleName}, '%')
+        </if>
+        <if test="keywords != null">
+            AND keywords LIKE CONCAT('%', #{keywords}, '%')
+        </if>
+        <if test="fieldOfResearch != null">
+            AND field_of_research LIKE CONCAT('%', #{fieldOfResearch}, '%')
+        </if>
+        <if test="publishTimeFrom != null">
+            AND publish_time &gt;= #{publishTimeFrom}
+        </if>
+        <if test="publishTimeTo != null">
+            AND publish_time &lt;= #{publishTimeTo}
+        </if>
+    </select>
+
+</mapper>

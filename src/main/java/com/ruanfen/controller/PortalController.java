@@ -1,7 +1,6 @@
 package com.ruanfen.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ruanfen.model.Portal;
-import com.ruanfen.model.Project;
 import com.ruanfen.model.Result;
 import com.ruanfen.service.PortalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,9 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/portal")
-public class PortalController {
+@RequestMapping("/api/portal")
+public class
+PortalController {
     @Autowired
     private PortalService portalService;
     @PostMapping("/add")
@@ -60,4 +60,16 @@ public class PortalController {
         return Result.success(portalList);
     }
 
+    @GetMapping("/find/withResearcher")
+    //根据researcherId 找portal
+    public Result<Integer> findPortalIdByResearcher(@RequestParam int researcherId){
+        // 调用服务层方法查询
+        Integer portalId = portalService.findPortalIdByResearcher(researcherId);
+
+        if (portalId != null) {
+            return Result.success(portalId); // 成功返回 Portal ID
+        } else {
+            return Result.error("未找到对应的 Portal");
+        }
+    }
 }

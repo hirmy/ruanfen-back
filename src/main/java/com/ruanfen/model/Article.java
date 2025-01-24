@@ -2,11 +2,8 @@ package com.ruanfen.model;
 
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.ruanfen.enums.FieldOfResearch;
 import lombok.Data;
-import org.apache.ibatis.type.EnumTypeHandler;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -15,7 +12,6 @@ public class Article {
     @TableId(value = "article_id", type = IdType.AUTO) // 主键，自增
     private Integer articleId;
 
-    @TableField("article_name")
     private String articleName;
 
     private String doi;
@@ -24,7 +20,6 @@ public class Article {
 
     private String keywords;
 
-    @TableField("researcher_id")
     private Integer researcherId;
 
     private String researcherUrl;
@@ -34,7 +29,6 @@ public class Article {
     @TableField("publish_time")
     private Date publishTime;
 
-    @TableField("category_num")
     private String categoryNum;
 
     private Integer pages;
@@ -47,5 +41,15 @@ public class Article {
 
     @TableField("references_ids")
     private String referencesIds; // 存储引用文献 ID 串
+
+    private String referencedWorks;
+
+    private String researcherName;
+
+    private String researcherInstitution;
+
+    public void addView(){
+        this.views++;
+    }
 
 }

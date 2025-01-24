@@ -7,6 +7,7 @@ import com.ruanfen.model.Portal;
 import com.ruanfen.model.Researcher;
 import com.ruanfen.model.Result;
 import com.ruanfen.model.User;
+import com.ruanfen.result.LoginResult;
 import com.ruanfen.service.PortalService;
 import com.ruanfen.service.ResearcherService;
 import com.ruanfen.service.UserService;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -41,45 +42,34 @@ public class UserController {
 
     @PostMapping("/sendEmail")
     @ResponseBody
-    public Result sendEmail(@RequestParam("email") String email, HttpSession httpSession){
+    public Result sendEmail(@RequestParam("email") String email, @RequestParam("code") String code){
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("email", email);
         List<User> users = userService.list(wrapper);
         if(!users.isEmpty()){
             return Result.error("邮箱已注册");
         }
-        mailService.sendMimeMail(email, httpSession);
+        mailService.sendMimeMail(email,code);
 
         return Result.success();
     }
 
     @PostMapping("/register")
-    public Result register(String username, String password, String code, HttpSession session){
-        String email = (String) session.getAttribute("email");
-        String trueCode = (String) session.getAttribute("code");
+    public Result register(String username, String password){
 
         //获取表单中的提交的验证信息
         if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
             return Result.error("用户名或密码不能为空！");
         }
 
-        if(code == null || code.isEmpty()){
-            return Result.error("请填写验证码");
-        }
 
-        //如果email数据为空，或者不一致，注册失败
-        if (email == null || email.isEmpty()){
-            return Result.error("请重新注册。");
-        }else if (!code.equals(trueCode)){
-            //return "error,请重新注册";
-            return Result.error("验证码不正确！");
-        }
-        userService.register(username, password, email);
+
+        userService.register(username, password);
         return Result.success();
     }
 
     @PostMapping("/login")
-    public Result<String> login(String username, String password){
+    public Result<LoginResult> login(String username, String password){
         User existUser = userService.findByUsername(username);
         if(existUser == null){
             return Result.error("用户不存在");
@@ -102,8 +92,7 @@ public class UserController {
                 }
             };
             String token = JwtUtil.genToken(claims);
-            return Result.success(token);
-
+            return Result.success(new LoginResult(token, existUser));
         }
 
         return Result.error("密码错误");
@@ -187,7 +176,7 @@ public class UserController {
 
         portal.setBelongUserId(userId);
         portal.setIsClaimed(true);
-        portal.setClaimedTime(LocalDateTime.now());
+        portal.setClaimedTime(new Date());
         portalService.updateById(portal);
 
         Researcher researcher = researcherService.getById(researcherId);

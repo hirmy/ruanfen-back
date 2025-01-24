@@ -25,9 +25,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public void register(String name, String password, String email) {
+    public void register(String name, String password) {
         String securePwd = Md5Util.getMD5String(password);
-        userMapper.addUser(name, securePwd, email);
+        userMapper.addUser(name, securePwd);
     }
 
 }

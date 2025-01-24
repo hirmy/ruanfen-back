@@ -32,6 +32,7 @@ public class ResearcherConstant {
                   },
                   "fieldOfResearch":{
                     "type": "text",
+                    "analyzer": "ik_smart",
                     "copy_to": "all"
                   },
                   "all":{

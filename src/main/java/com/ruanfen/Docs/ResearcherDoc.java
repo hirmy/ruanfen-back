@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-public class ResearcherDoc {
+public class ResearcherDoc extends Doc {
     private Long researcherId;  // researcher_id, 类型为 long
     private String name;        // name，使用 ik_smart 分析器，并且复制到 all 字段
     private String institution; // institution，使用 ik_smart 分析器，并且复制到 all 字段

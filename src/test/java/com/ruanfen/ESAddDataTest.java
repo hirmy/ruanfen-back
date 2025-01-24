@@ -30,7 +30,6 @@ public class ESAddDataTest {
     @Autowired
     private ArticleService articleService;
 
-
     @Autowired
     private ResearcherService researcherService;
 
@@ -62,8 +61,8 @@ public class ESAddDataTest {
         // 3.发送请求
         client.bulk(request, RequestOptions.DEFAULT);
         this.client.close();
-
     }
+
 
     @Test
     public void addData2Article() throws IOException{
@@ -73,53 +72,70 @@ public class ESAddDataTest {
 
         List<Article> articles = articleService.list();
 
-        // 1.创建Request
+        // 每批次导入的大小
+        final int batchSize = 100000;
+
+        // 批量导入数据
         BulkRequest request = new BulkRequest();
-        // 2.准备参数，添加多个新增的Request
+        int count = 0;
+
         for (Article article : articles) {
-            // 2.1.转换为文档类型
             ArticleDoc articleDoc = new ArticleDoc(article);
-
-            String researcherUrl = article.getResearcherUrl();
-            String researcherName = researcherService.getNameByUrl(researcherUrl);
-            articleDoc.setResearcherName(researcherName);
-
-            // 2.2.创建新增文档的Request对象
             request.add(new IndexRequest("article")
                     .id(String.valueOf(articleDoc.getArticleId()))
                     .source(JSON.toJSONString(articleDoc), XContentType.JSON));
+            count++;
+
+            if (count % batchSize == 0) {
+                client.bulk(request, RequestOptions.DEFAULT); // 发送请求
+                request = new BulkRequest(); // 创建新的请求
+            }
         }
-        // 3.发送请求
-        client.bulk(request, RequestOptions.DEFAULT);
+
+        // 处理剩余数据
+        if (!request.requests().isEmpty()) {
+            client.bulk(request, RequestOptions.DEFAULT);
+        }
+
         this.client.close();
 
     }
-
     @Test
-    public void addData2Researcher() throws IOException{
+    public void addData2Researcher() throws IOException {
         this.client = new RestHighLevelClient(RestClient.builder(
                 HttpHost.create("http://127.0.0.1:9200")
         ));
 
         List<Researcher> researchers = researcherService.list();
 
-        // 1.创建Request
-        BulkRequest request = new BulkRequest();
-        // 2.准备参数，添加多个新增的Request
-        for (Researcher researcher : researchers) {
-            // 2.1.转换为文档类型
-            ResearcherDoc researcherDoc = new ResearcherDoc(researcher);
+        // 每批次导入的大小
+        final int batchSize = 100000;
 
-            // 2.2.创建新增文档的Request对象
+        // 批量导入数据
+        BulkRequest request = new BulkRequest();
+        int count = 0;
+
+        for (Researcher researcher : researchers) {
+            ResearcherDoc researcherDoc = new ResearcherDoc(researcher);
             request.add(new IndexRequest("researcher")
                     .id(String.valueOf(researcherDoc.getResearcherId()))
                     .source(JSON.toJSONString(researcherDoc), XContentType.JSON));
-        }
-        // 3.发送请求
-        client.bulk(request, RequestOptions.DEFAULT);
-        this.client.close();
+            count++;
 
+            if (count % batchSize == 0) {
+                client.bulk(request, RequestOptions.DEFAULT); // 发送请求
+                request = new BulkRequest(); // 创建新的请求
+            }
+        }
+
+        // 处理剩余数据
+        if (!request.requests().isEmpty()) {
+            client.bulk(request, RequestOptions.DEFAULT);
+        }
+
+        this.client.close();
     }
+
 
     @Test
     public void addData2Patent() throws IOException{
@@ -134,22 +150,7 @@ public class ESAddDataTest {
         // 2.准备参数，添加多个新增的Request
         for (Patent patent : patents) {
             // 2.1.转换为文档类型
-            ArrayList<String> inventors_name = new ArrayList<>();
             PatentDoc patentDoc = new PatentDoc(patent);
-            String inventor_ids = patent.getInventorsId();
-
-            //获取inventor_name
-            String[] ids = inventor_ids.split(",");
-            String ivtName;
-            for (String id : ids) {
-                id = id.trim();
-                ivtName = researcherService.getNameById(Integer.parseInt(id));
-                if(ivtName != null){
-                    inventors_name.add(ivtName);
-                }
-            }
-
-            patentDoc.setInventorsName(inventors_name);
 
             // 2.2.创建新增文档的Request对象
             request.add(new IndexRequest("patent")

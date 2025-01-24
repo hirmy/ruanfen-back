@@ -13,36 +13,76 @@ public class WebConfig implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
 
     private String[] excludeLoginPath = new String[]{
-            "/user/login",
-            "/user/register",
-            "/user/sendEmail",
+            "/api/user/login",
+            "/api/user/register",
+            "/api/user/sendEmail",
+            "/api/user/allUser",
+            "/api/user/userInfo/find",
+            "/api/user/claim",
 
             //搜索无需登录(大概吧)
-            "/search/article/allArticle",
-            "/search/article",
-            "/search/article/page",
-            "/search/article/doc",
-            "/search/article/cond",
+            "/api/search/article/allArticle",
+            "/api/search/article",
+            "/api/search/article/page",
+            "/api/search/article/doc",
+            "/api/search/article/cond",
+            "/api/search/article/page/order",
 
-            "/search/researcher/allResearcher",
-            "/search/researcher",
-            "/search/researcher/page",
-            "/search/researcher/doc",
-            "/search/researcher/cond",
-
-
-            "/search/patent/allPatent",
-            "/search/patent",
-            "/search/patent/page",
-            "/search/patent/doc",
-            "/search/patent/cond",
+            "/api/search/researcher/allResearcher",
+            "/api/search/researcher",
+            "/api/search/researcher/page",
+            "/api/search/researcher/doc",
+            "/api/search/researcher/cond",
+            "/api/search/researcher/page/order",
 
 
-            "/search/project/allProject",
-            "/search/project",
-            "/search/project/page",
-            "/search/project/doc",
-            "/search/project/cond"
+            "/api/search/patent/allPatent",
+            "/api/search/patent",
+            "/api/search/patent/page",
+            "/api/search/patent/doc",
+            "/api/search/patent/cond",
+            "/api/search/patent/page/order",
+
+
+            "/api/search/project/allProject",
+            "/api/search/project",
+            "/api/search/project/page",
+            "/api/search/project/doc",
+            "/api/search/project/cond",
+
+            "/api/project/find",
+            "/api/project/allProjects",
+            "/api/project/search",
+
+            "/api/comment/findById",
+            "/api/comment/find",
+            "/api/comment/add",
+            "/api/comment/remove",
+
+            "/api/portal/find",
+            "/api/portal/allPortals",
+            "/api/portal/find/withResearcher",
+            "/api/portal/add",
+            "/api/portal/remove",
+
+            "/api/article/find",
+            "/api/article/allArticles",
+            "/api/article/search",
+            "/api/article/find/urls",
+            "/api/article/addView",
+            "/api/article/add",
+            "/api/article/remove",
+            "/api/article/update",
+
+            "/api/patent/find",
+            "/api/patent/search",
+            "/api/patent/addView",
+            "/api/patent/remove",
+            "/api/patent/update",
+
+            "/api/researcher/find",
+            "/api/researcher/search",
+
 
     };
 
